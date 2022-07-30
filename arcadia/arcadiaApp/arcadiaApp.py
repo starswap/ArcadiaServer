@@ -14,9 +14,14 @@ app_bp = Blueprint('app_bp', __name__, template_folder="templates", static_folde
 @requiremobile
 def home():
     if session.get("userid"):
-        return render_template("displayguesses.jinja2")
+        return render_template("home.jinja2")
     else:
-        return render_template("displayguesses.jinja2")
+        return render_template("home.jinja2")
+
+@app_bp.route('/guesser')
+@requiremobile
+def home():
+    return render_template("displayguesses.jinja2")
 
 
 
