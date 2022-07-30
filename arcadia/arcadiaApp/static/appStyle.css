@@ -20,4 +20,12 @@ div#main {
 nav#navbar{
     height: 50px;
     border-bottom: 1px solid #A5D193;
+    display:flex;
 }
+div#maincontent{
+    flex-grow: 1;
+}
+div#maincontent{
+    flex-grow: 1;
+}
+
