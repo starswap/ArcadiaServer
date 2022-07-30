@@ -2,6 +2,12 @@
 
 /* Base Stuff */
 
+:root {
+    --brandDarkGreen: #1C491F;
+    --brandLightGreen: #A5D193; 
+} 
+
+
 html,
 body{
     background-color: #1C491F;
@@ -38,10 +44,10 @@ h1{
 }
 h2{
     font-family: 'Chivo';
-font-style: normal;
-font-weight: 400;
-font-size: 21px;
-line-height: 25px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
 }
 
 /* Main stuff & Header */
@@ -127,8 +133,18 @@ div.block{
 
 label{
     font-weight: 700;
+    padding-bottom: 15px;
 }
 
+input.general{
+    background-color: var(--brandDarkGreen);
+    border-style: solid;
+    border-color: var(--brandLightGreen);
+    border-radius: 6px;
+    color: var(--brandLightGreen);
+    line-height: 24px;
+    margin-top: 10px;
+}
 
 
 /* input#general{
