@@ -14,7 +14,7 @@ body{
     
 }
 
-a.button{
+a.button, button {
     color: #1C491F;
     background-color: #A5D193;
     border-radius: 10px;

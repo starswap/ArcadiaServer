@@ -17,17 +17,94 @@ crossorigin=""></script>
 {% block main %}
 <div id="map" style="height:200px;">
 </div>
+<p id="choose">First you need to choose an arcade to naviagate to.</p>
+
+<button id="guessButton" onclick="getLocation()" style="display:none;">Make Guess</button>
+
 
 <script>
+
+var circles = []
+
+
+function getCookieDict() {
+    let cookies = {}
+    document.cookie.split(";").map((a) => {
+        cookies[a.trim().split("=")[0]] = a.trim().split("=")[1]
+    })
+    return cookies
+}
+
+function circleClick(event) {
+    let cookies = getCookieDict()
+    if (cookies["chosen"]) {
+        //User has already made a choice
+        //We use cookies to ensure guesses persist over reload
+    }
+    else {
+        let circle = event.target
+        document.cookie = "poilat="+circle.poilat.toString();
+        document.cookie = "poilong="+circle.poilat.toString();
+        document.cookie = "chosen=true";        
+        document.getElementById("guessButton").style.display = "block";
+    }
+}
+
+function makeCircle(circleDetails) {
+    let circle = L.circle([circleDetails.circlelat, circleDetails.circlelong], {
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.5,
+        radius: circleDetails.radius
+    }).addTo(map).on("click", circleClick);
+    circle.poilat = circleDetails.poilat
+    circle.poilong = circleDetails.poilong
+    circles.push(circle)
+}
+
+//Create a leaflet map object with map tiles
 var map = L.map('map').setView([51.505, -0.09], 13);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-L.marker([51.5, -0.09]).addTo(map)
-    .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
-    .openPopup();
+
+function moveToUserLocation() { 
+  //Gets access to the user's location via the geolocation API, and pans the map to where they are.
+  if (navigator.geolocation) { //Geolocation
+    navigator.geolocation.getCurrentPosition( (CoordObject => {
+        map.panTo(new L.LatLng(CoordObject.coords.latitude, CoordObject.coords.longitude));
+    }));
+  }
+  else { //No geolocation available
+    alert("Unfortunately you can't play Arcadia on this device because your browser does not support GPS; try installing the latest version of Google Chrome or enabling the location permission.")
+  }
+
+}
+moveToUserLocation() //On startup we need to go to where the user is
+
+fetch("{{url_for("api_bp.find_games")}}")
+    .then((response) => response.json())
+    .then( (data) => {
+        console.log(data)
+        data["locations"].map(makeCircle)
+    }
+)
+
+
+let cookies = getCookieDict()
+if (cookies["chosen"]) {
+    document.getElementById("guessButton").style.display = "block";
+}
+else {
+    document.getElementById("guessButton").style.display = "none";
+}
+
+
+</script>
+
+<script>
 
 </script>
 
