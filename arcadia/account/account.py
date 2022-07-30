@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from passlib.hash import argon2
 from requests import Response
-from db import get_db
+from arcadia.db import get_db
 
 account_bp = Blueprint('account_bp', __name__)
 
