@@ -1,10 +1,8 @@
 from flask import Blueprint, Flask, request, Response
 import json
-import haversine as hs
-from .arcadeLocation import arcadeLocation
-from haversine import Unit
-import math
+from arcadia.api.modlocation import returnNearCoords, getArcadeCoords
 
+from arcadia.api.modlocation.distdir import dist, direc
 
 api_bp = Blueprint('api_bp', __name__)
 
@@ -15,13 +13,14 @@ def find_games():
     user_x = request.values.get('xcoord')
     user_y = request.values.get('ycoord')
 
-    # do logic here
+    user_x = 51.364991
+    user_y = -0.361726
 
     return Response(
         response=json.dumps(
             {
-                "radius": "50m",
-                "locations": [{"x": 1.11111, "y": 2.22222}, {"x": 4.444444, "y": 5.55555}, {"x": 6.666666, "y": 7.7777}]
+                "radius": 50,
+                "locations": returnNearCoords(user_x, user_y)
             }
         ),
         status=200,
@@ -34,11 +33,19 @@ def recieve_guess(arcade_id):
     user_x = request.values.get('xcoord')
     user_y = request.values.get('ycoord')
     # arcade_id = request.values.get('arcade_id')
-    arcade_x, arcade_y = arcadeLocation.get_arcade_coords(arcade_id)
-    distance = hs.haversine((arcade_x, arcade_y),
-                            (user_x, user_y), unit=Unit.METERS)
-    direction = 'placeholder'
-    response_dict = {'direction': direction, 'distance': distance}
+    
+    
+    #! also pull the poi coords out of the database for the arcade ID
+    arcade_x, arcade_y = getArcadeCoords(arcade_id, xloc, xlat)
+    
+    
+    # distance = hs.haversine((arcade_x, arcade_y), (user_x, user_y), unit=Unit.METERS)
+    distance = dist(arcade_x, arcade_y, user_x, user_y)
+    
+    direction = direc(arcade_x, arcade_y, user_x, user_y)
+    
+    
+    response_dict = {'direction': str(distance), 'distance': str(direction)}
 
     return Response(
         response=json.dumps(response_dict),
