@@ -2,15 +2,11 @@
 {% block main %}
 
     <form method="POST">
-
-        <h2> Login </h2>
-
-      <input type="text" id="username" name="username" placeholder = "Username" required><br>
-      <input type="password" id="password" name="password" placeholder = "Password" required><br><br>
-      <input type="submit" value="Submit">
-      <span>No account? <a href="{{url_for('account_bp.register')}}">Register</a></span>
-
-        <br><br><br>
-  </form> 
+        <h2>  Login </h2>
+        <input type="text" id="username" name="username" placeholder = "Username" required><br><br>
+        <input type="password" id="password" name="password" placeholder = "Password" required><br><br>
+        <input type="submit" value="Submit"><br><br>
+        <span>No account? <a href="{{url_for('account_bp.register')}}"> - Register</a></span>
+    </form> 
 
 {% endblock %}
