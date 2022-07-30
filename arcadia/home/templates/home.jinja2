@@ -1,42 +1,6 @@
 <!DOCTYPE html>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700&family=Dela+Gothic+One&display=swap');
-
-body, 
-html, 
-div#container {width:100%; height:100%; background-color: #1C491F; padding: 0px; margin: 0px; color:#A5D193; font-family: Chivo, Helvetica, Arial, sans-serif;
-}
-div#container{
-    display: flex;
-    flex-direction: column;
-}
-div#top{
-    height: 50px;
-    border-bottom: 1px solid #A5D193;
-    display:flex;
-}
-div#left{
-
-}
-div#hspace{
-    flex-grow: 1;
-}
-div#right{
-}
-div#bottom{
-    flex-grow: 1;
-}
-
-div#center{
-    display:flex;
-    padding-top:20vh;
-    height:50%;
-
-}
-
-</style>
-
+<script src="https://kit.fontawesome.com/406fdaf1d8.js" crossorigin="anonymous"></script> <!-- font awesome -->
+<link rel="stylesheet" href="{{ url_for('home_bp.static', filename='homeStyle.css') }}" />
 
 <html>
     <head>
@@ -63,12 +27,13 @@ div#center{
                     <img src="{{ url_for('home_bp.static', filename='img/main.png') }}" style=" height:100%; border-radius: 10px;">
                 </div>
                 <div style="width:30%;">
-                    <h1> Ok </h1>
-                    <h2> Ok </h2>
-
+                    <h1>Play the Earth!</h1>
+                    <p>Arcadia is a brand new way of interacting with the outdoors.</p> 
+                    <button id="installButton">Install Arcadia Now! <i class="fa-solid fa-location-dot"></i></button>
                 </div>
-                
+
                 <div style="flex-grow: 1;"></div>
+                
             </div>
 
         </div>
