@@ -26,7 +26,7 @@ def guesses():
 
 @app_bp.route('/register')
 @requiremobile
-def account():
+def register():
 
     if request.method == 'GET':
         return render_template("register.jinja2")
