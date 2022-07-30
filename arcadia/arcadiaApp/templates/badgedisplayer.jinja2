@@ -1,0 +1,8 @@
+{% extends "appbase.jinja2" %}
+{% block main %}
+<table>
+    {% for item in response}
+        <tr><td>{{item["url"]}}</td> <td>{{item["badge_name"]}}</td></tr>
+    {% endfor %}
+</tabel>
+{% endblock %}

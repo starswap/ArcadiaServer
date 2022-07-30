@@ -3,17 +3,17 @@
 {% block header %}<link rel="stylesheet" href="{{url_for('app_bp.static', filename='accountStyle.css')}}">{% endblock %}
 
 {% block typename %}Login{% endblock %}
+{% block typesubtext %}Login to start playing{% endblock %}
 
 {% block forms %}
 
     <form method="POST">
-        <h2>  Login </h2>
         <label> Username </label><br>
-        <input type="text" id="general" name="username" required><br><br>
+        <input type="text" class="general" name="username" required><br><br>
         <label> Password </label><br>
-        <input type="password" id="general" name="password" required><br><br>
+        <input type="password" class="general" name="password" required><br><br>
         <input id="submit" type="submit" value="Submit"><br><br>
-        <span>No account? <a href="{{url_for('app_bp.register')}}"> - Register</a></span>
+        <span>No account? - <a id="registerlink" href="{{url_for('app_bp.register')}}"> Register</a></span>
     </form> 
 
 {% endblock %}

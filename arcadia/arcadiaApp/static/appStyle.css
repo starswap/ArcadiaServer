@@ -1,6 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700&family=Dela+Gothic+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700;900&family=Dela+Gothic+One&display=swap');
 
 /* Base Stuff */
+
+:root {
+    --brandDarkGreen: #1C491F;
+    --brandLightGreen: #A5D193; 
+} 
+
 
 html,
 body{
@@ -40,10 +46,10 @@ h1{
 }
 h2{
     font-family: 'Chivo';
-font-style: normal;
-font-weight: 400;
-font-size: 21px;
-line-height: 25px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
 }
 
 /* Main stuff & Header */
@@ -99,4 +105,65 @@ div#mainbottom{
     /* height: 50%; */
     flex-grow: 1;
     padding: 10px 40px;
+}
+
+
+/* Shared login and register (account) stuff */
+
+
+div#accountcontainer{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+div#accounttopimage{
+    height:40%;
+    background-image: url("https://images.unsplash.com/photo-1642086828110-6a83b077954b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80");
+    background-size: cover;
+    background-position: center center;
+
+}
+div#accountbottom{
+    /* height: 50%; */
+    flex-grow: 1;
+    /* padding: 10px 40px; */
+}
+
+div.block{
+    padding: 10px 40px;
+}
+
+label{
+    font-weight: 700;
+    padding-bottom: 15px;
+}
+
+input.general{
+    background-color: var(--brandDarkGreen);
+    border-style: solid;
+    border-color: var(--brandLightGreen);
+    border-radius: 10px;
+    color: var(--brandLightGreen);
+    line-height: 24px;
+    margin-top: 10px;
+    height: 30px;
+    width: 100%;
+}
+
+input[type=submit] {
+    color: #1C491F;
+    background-color: #A5D193;
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 10px 30px;
+    border-style: none;
+    display: inline-block;
+    margin: 4px 2px;
+    text-decoration: none;
+    font-family: Chivo, Helvetica, Arial, sans-serif;
+
+}
+a#registerlink{
+    color: #A5D193;
+
 }
