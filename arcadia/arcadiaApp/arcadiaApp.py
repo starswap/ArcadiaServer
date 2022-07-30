@@ -20,13 +20,13 @@ def home():
 
 @app_bp.route('/guesser')
 @requiremobile
-def guesses():
+def guesser():
     return render_template("displayguesses.jinja2")
 
 
 @app_bp.route('/register')
 @requiremobile
-def account():
+def register():
 
     if request.method == 'GET':
         return render_template("register.jinja2")
