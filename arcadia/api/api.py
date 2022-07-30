@@ -11,9 +11,11 @@ api_bp = Blueprint('api_bp', __name__)
 
 @api_bp.route("/game/find", methods=['GET', 'POST'])
 def find_games():
+    # jsonSent = request.get_json(force=True)
+
     # needs to be sent current location of user in request
-    # user_x = float(request.values.get('userlat'))
-    # user_y = float(request.values.get('userlong'))
+    # user_x = float(jsonSent['userlat'])
+    # user_y = float(jsonSent['userlong'])
 
     user_x = 51.364991
     user_y = -0.361726
@@ -32,10 +34,13 @@ def find_games():
 
 @api_bp.route("/game/<arcade_id>/guess", methods=['POST'])
 def receive_guess(arcade_id):
-    userlat = float(request.values.get('userlat'))
-    userlong = float(request.values.get('userlong'))
-    poilat = float(request.values.get('poilat'))
-    poilong = float(request.values.get('poilong'))
+
+    jsonSent = request.get_json(force=True)
+
+    userlat = float(jsonSent['userlat'])
+    userlong = float(jsonSent['userlong'])
+    poilat = float(jsonSent['poilat'])
+    poilong = float(jsonSent['poilong'])
     
     if not userlat or not userlong or not poilat or not poilong:
         return "insufficient parameters"
