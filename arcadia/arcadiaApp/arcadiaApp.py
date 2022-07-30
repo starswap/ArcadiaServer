@@ -1,5 +1,5 @@
 import re
-from flask import Blueprint, render_template, session, redirect, url_for
+from flask import Blueprint, flash, render_template, session, redirect, url_for
 from arcadia.arcadiaApp.requiremobile import requiremobile
 from flask import Blueprint, request
 from passlib.hash import argon2
@@ -47,7 +47,7 @@ def register():
 
     if request.method == 'GET':
         if session.get("UserID"):
-            redirect(url_for("app_bp.apphome"))
+            redirect(url_for("app_bp.home"))
         return render_template("register.jinja2")
 
     elif request.method == 'POST':
@@ -75,7 +75,7 @@ def login():
 
     if request.method == 'GET':
         if session.get("UserID"):
-            redirect(url_for("app_bp.apphome"))
+            redirect(url_for("app_bp.home"))
         return render_template("login.jinja2",)
     elif request.method == 'POST':
         if not session.get("UserID"):
@@ -87,14 +87,14 @@ def login():
             cur.execute(
                 'SELECT PasswordHash FROM "Users" WHERE UserName= %s;', (username,))
             resp = cur.fetchone()
-
-            print(resp)
             
-            if resp == None:
-                return redirect(url_for("account_bp.login"))
+            if resp == None: # No user exists
+                flash("Incorrect Login details")
+                return redirect(url_for("app_bp.login"))
 
-            if not argon2.verify(password, resp["passwordhash"]):
-                return redirect(url_for("account_bp.login"))
+            if not argon2.verify(password, resp["passwordhash"]): # Bad password for user
+                flash("Incorrect Login details")
+                return redirect(url_for("app_bp.login"))
 
             else:
                 cur.execute(
