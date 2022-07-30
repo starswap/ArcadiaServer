@@ -1,18 +1,29 @@
 from math import radians, cos, sin, asin, sqrt, atan2, degrees
 
-def dist(lat1, long1, lat2, long2):
+def dist(lat1, long1, lat2, long2) -> int:
+    """Returns distance IN METERS
 
-      R = 6372.8 
+    Args:
+        lat1 (int): lat 1
+        long1 (int): long 1
+        lat2 (int): lat 2
+        long2 (int): long2
 
-      dLat = radians(lat2 - lat1)
-      dLon = radians(long2 - long1)
-      lat1 = radians(lat1)
-      lat2 = radians(lat2)
+    Returns:
+        int: Distance in meters
+    """
 
-      a = sin(dLat/2)**2 + cos(lat1)*cos(lat2)*sin(dLon/2)**2
-      c = 2*asin(sqrt(a))
+    R = 6372.8 
 
-      return R * c
+    dLat = radians(lat2 - lat1)
+    dLon = radians(long2 - long1)
+    lat1 = radians(lat1)
+    lat2 = radians(lat2)
+
+    a = sin(dLat/2)**2 + cos(lat1)*cos(lat2)*sin(dLon/2)**2
+    c = 2*asin(sqrt(a))
+
+    return R * c * 1000 # meters?
 
 def direc(lat1, long1, lat2, long2):
     dLon = (long2 - long1)
@@ -22,3 +33,7 @@ def direc(lat1, long1, lat2, long2):
     bearing = degrees(bearing)
 
     return bearing
+
+if __name__ == '__main__':
+    print(dist(53.4808, 2.2426, 51.5072, 0.1276))
+    print(direc(53.4808, 2.2426, 51.5072, 0.1276))

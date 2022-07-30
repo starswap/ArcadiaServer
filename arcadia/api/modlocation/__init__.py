@@ -3,7 +3,7 @@ from datetime import datetime
 from math import pi, cos
 crc32_func = crcmod.mkCrcFun(0x104c11db7, initCrc=0, xorOut=0xFFFFFFFF)
 
-earthRadius = 6378137
+earthRadius = 6378137.0
 
 arcadeScale = 100 / 16  # 100m
 circleScale = 100 / 16
@@ -28,7 +28,8 @@ def findPOICoords(xloc: int, yloc: int) -> list[dict[str, float]]:
     ]
 
 
-def returnNearCoords(xloc: int, yloc: int) -> list[dict[str]]: # it actually isnt...
+# it actually isnt...
+def returnNearCoords(xloc: int, yloc: int) -> list[dict[str]]:
 
     nearCoordsList = findPOICoords(xloc, yloc)  # replace this with osm data
 
@@ -41,7 +42,7 @@ def returnNearCoords(xloc: int, yloc: int) -> list[dict[str]]: # it actually isn
         cxloc, cyloc = getCircleCoords(coords["x"], coords["y"])
 
         out.append({"circlelat": round(cxloc, 6), "circlelong": round(
-            cyloc, 6), "poilat": xloc, "poilong": yloc, "arcadeid": arcadeid, "gametype": gametype})
+            cyloc, 6), "poilat": coords["x"], "poilong": coords["y"], "arcadeid": arcadeid, "gametype": gametype})
 
     return out
     # return [
@@ -52,24 +53,24 @@ def returnNearCoords(xloc: int, yloc: int) -> list[dict[str]]: # it actually isn
     # ]
 
 
-def coordOffsetter(xloc: int, yloc: int, mox: int, moy: int) -> tuple[float, float]:
+def coordOffsetter(xloc: float, yloc: float, mox: float, moy: float) -> tuple[float, float]:
     """Will generate coordinate offsets, given x and y coords, and offsets in meters
 
     Args:
-        xloc (int): X coord
-        yloc (int): Y coord
-        mox (int): meter offset x
-        moy (int): meter offset y
+        xloc (float): X coord
+        yloc (float): Y coord
+        mox (float): meter offset x
+        moy (float): meter offset y
 
     Returns:
         tuple[float, float]: the new x location and new y location
     """
-
     dX = mox/earthRadius  # Coordinate Offsets (Radians!)
-    dY = moy/(earthRadius*cos(pi*xloc/180))
+    dY = moy/(earthRadius*cos(pi*xloc/180.0))
 
-    newxloc = xloc + dY * 180/pi  # New Positions (decimal degrees)
-    newyloc = yloc + dX * 180/pi
+    
+    newxloc = xloc + dY * 180.0/pi  # New Positions (decimal degrees)
+    newyloc = yloc + dX * 180.0/pi
 
     return newxloc, newyloc
 
@@ -82,6 +83,7 @@ def getArcadeCoords(xloc: int, yloc: int):
 
     arcadexloc, arcadeyloc = coordOffsetter(xloc, yloc, meter_aoX, meter_aoY)
 
+    print(arcadexloc, arcadeyloc)
     return arcadexloc, arcadeyloc
 
 
