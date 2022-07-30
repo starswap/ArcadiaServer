@@ -13,6 +13,6 @@ def init_app():
     with app.app_context():
 
         app.register_blueprint(home.home_bp)
-        app.register_blueprint(api.account_bp, url_prefix="/api")
+        app.register_blueprint(api.api_bp, url_prefix="/api")
 
         return app
