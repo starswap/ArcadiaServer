@@ -1,3 +1,4 @@
+import re
 from flask import Blueprint, render_template, session, redirect, url_for
 from arcadia.arcadiaApp.requiremobile import requiremobile
 from flask import Blueprint, request
@@ -23,6 +24,21 @@ def home():
 def guesser():
     return render_template("displayguesses.jinja2")
 
+@app_bp.route('/badges')
+@requiremobile
+def badges():
+    user_id = session["UserID"]
+    db, cur = get_db()
+    cur.execute(("""SELECT BadgeID FROM UserBadges WHERE UserID=%s"""), (user_id,))
+    response = cur.fetchall()
+    resp = []
+    for row in response:
+        badge_id = row[0]
+        cur.execute(("""SELECT BadgeName FROM Badges WHERE BadgeID=%s"""), (badge_id))
+        badge_name = cur.fetchone()
+        url = "arcadia/arcadiaApp/static/images/" + badge_id + ".jpeg"
+        resp.append((url, badge_name))
+    return render_template("badgedisplayer.jinja2", response=resp)
 
 @app_bp.route('/register')
 @requiremobile
