@@ -13,9 +13,18 @@
         <div class="block">
             <h1>{% block typename %}{% endblock %}</h1>
             <h2>{% block typesubtext %}{% endblock %}</h2>
+            
+
         </div>
          <hr>
         <div class="block">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <p class="accounterror">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         {% block forms %}{% endblock %}
         </div>
 

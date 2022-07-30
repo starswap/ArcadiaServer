@@ -17,7 +17,6 @@ body{
     font-family: Chivo, Helvetica, Arial, sans-serif;
     height: 100%;
     font-weight: 400;
-    
 }
 
 a.button, button {
@@ -166,4 +165,8 @@ input[type=submit] {
 a#registerlink{
     color: #A5D193;
 
+}
+
+p.accounterror{
+    color: rgb(250, 118, 118);
 }
