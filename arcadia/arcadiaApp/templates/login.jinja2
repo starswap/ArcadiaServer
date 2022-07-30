@@ -13,7 +13,7 @@
         <label> Password </label><br>
         <input type="password" class="general" name="password" required><br><br>
         <input id="submit" type="submit" value="Submit"><br><br>
-        <span>No account? <a href="{{url_for('app_bp.register')}}"> - Register</a></span>
+        <span>No account? - <a id="registerlink" href="{{url_for('app_bp.register')}}"> Register</a></span>
     </form> 
 
 {% endblock %}
