@@ -25,9 +25,10 @@ crossorigin=""></script>
 
 <script>
 
+var userMarker = false;
+var map;
+
 var circles = []
-
-
 function getCookieDict() {
     let cookies = {}
     document.cookie.split(";").map((a) => {
@@ -65,36 +66,77 @@ function makeCircle(circleDetails) {
     circles.push(circle)
 }
 
-//Create a leaflet map object with map tiles
-var map = L.map('map').setView([51.505, -0.09], 13);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
-
-
-function moveToUserLocation() { 
-  //Gets access to the user's location via the geolocation API, and pans the map to where they are.
+function getUserLocation(fnOf) { 
+  //Gets access to the user's location via the geolocation API, and pans the map to where they are, before requesting current circles from the api.
   if (navigator.geolocation) { //Geolocation
-    navigator.geolocation.getCurrentPosition( (CoordObject => {
-        map.panTo(new L.LatLng(CoordObject.coords.latitude, CoordObject.coords.longitude));
-    }));
+    navigator.geolocation.getCurrentPosition(CoordObject => {
+        let userCoords = {"lat":CoordObject.coords.latitude,"lon":CoordObject.coords.longitude}
+        fnOf(userCoords)
+    })
   }
   else { //No geolocation available
     alert("Unfortunately you can't play Arcadia on this device because your browser does not support GPS; try installing the latest version of Google Chrome or enabling the location permission.")
   }
 
 }
-moveToUserLocation() //On startup we need to go to where the user is
 
-fetch("{{url_for("api_bp.find_games")}}")
+function getCircles(coords) {
+    fetch("{{url_for("api_bp.find_games")}}", {
+        method : "POST",
+        body: JSON.stringify({
+            userlat: coords["lat"],
+            userlong: coords["lon"]
+            })
+    })
     .then((response) => response.json())
     .then( (data) => {
-        console.log(data)
         data["locations"].map(makeCircle)
+    })
+}
+
+function updateUserPosn(coords) {
+    if (!userMarker) {
+        let myLatLng = new L.LatLng(coords["lat"], coords["lon"]);
+        userMarker = new L.marker(coords).addTo(map);
+        map.panTo(myLatLng);    
+    }
+    else {
+        let myLatLng = new L.LatLng(coords["lat"], coords["lon"]);
+        userMarker.setLatLng(myLatLng)
+        map.panTo(myLatLng);    
+    }    
+}
+
+
+
+function guess() {
+       
+}
+
+
+//On loadup
+//Create a leaflet map object with map tiles
+map = L.map('map').setView([51.505, -0.09], 13);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+getUserLocation(
+    (userCoords) => {
+        getCircles(userCoords) //display circles 
+        updateUserPosn(userCoords) //show pin
     }
 )
 
+function update() {
+    getUserLocation(
+    (userCoords) => {
+        updateUserPosn(userCoords) //show pin
+    }
+)
+}
+setInterval(update,2000) //update location every 2000
 
 let cookies = getCookieDict()
 if (cookies["chosen"]) {
@@ -106,6 +148,8 @@ else {
     document.getElementById("guessButton").style.display = "none";
     document.getElementById("choose").style.display = "block";    
 }
+
+
 
 
 </script>
