@@ -12,6 +12,13 @@ body{
 
 }
 
+a.button{
+    color: #1C491F;
+    background-color: #A5D193;
+    border-radius: 10%;
+    padding: 10px 20px;
+    
+}
 
 /* Main stuff & Header */
 
@@ -49,3 +56,4 @@ img#smallLogo{
 }
 
 /* Home page */
+
