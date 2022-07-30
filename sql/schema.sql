@@ -28,3 +28,4 @@ CREATE TABLE 'ArcadeIdentifier'(
     ParkXCoord REAL NOT NULL,
     ParkYCoord REAL NOT NULL,
 );
+

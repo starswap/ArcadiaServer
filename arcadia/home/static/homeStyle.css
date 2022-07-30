@@ -6,7 +6,6 @@
 }
 
 body, 
-
 html, 
 
 div#container {
@@ -17,23 +16,24 @@ div#container {
     margin: 0px;
     color: var(--brandLightGreen);
     font-family: Chivo, Helvetica, Arial, sans-serif;
-}
-div#container{
     display: flex;
     flex-direction: column;
 }
+
 div#top{
     height: 50px;
     border-bottom: 1px solid var(--brandLightGreen);
     display:flex;
     align-items: center;
 }
-div#left{
 
+div#left{
 }
+
 div#hspace{
     flex-grow: 1;
 }
+
 div#right{
 }
 
@@ -58,4 +58,13 @@ button#installButton {
 
 #mobileOnlyNotification {
     font-style: italic;
+}
+
+button#submitButton {
+    padding: 5px 10px 5px 10px;
+    border-radius: 3px;
+    border: none;
+    color: var(--brandDarkGreen);
+    background-color: var(--brandLightGreen);
+    font-weight: bold;
 }
