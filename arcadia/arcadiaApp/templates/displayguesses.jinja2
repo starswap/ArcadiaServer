@@ -20,7 +20,7 @@ crossorigin=""></script>
     <div id="map" style="flex-grow:2;margin-right: 15px;margin-left:15px; ">
     </div>
     <p id="choose" style="text-align:center; margin: 10px 10px 10px 10px;">First choose an arcade to naviagate to.</p>
-    <button id="guessButton" onclick="makeGuess()" style="display:none;margin: 0px 10px 10px 10px;">Make Guess</button>
+    <button id="guessButton" onclick="makeGuess()" style="display:none;margin: 0px 10px 10px 10px;">Guess Here!</button>
 </div>
 
 <script>
@@ -47,6 +47,7 @@ function circleClick(event) {
         let circle = event.target
         document.cookie = "poilat="+circle.poilat.toString();
         document.cookie = "poilong="+circle.poilat.toString();
+        document.cookie = "arcadeid="+circle.arcadeid.toString();
         document.cookie = "chosen=true";        
         document.getElementById("guessButton").style.display = "block";
         document.getElementById("choose").innerHTML = "";
@@ -63,7 +64,9 @@ function makeCircle(circleDetails) {
     }).addTo(map).on("click", circleClick);
     circle.poilat = circleDetails.poilat
     circle.poilong = circleDetails.poilong
+    circle.arcadeid = circleDetails.arcadeid
     circles.push(circle)
+
 }
 
 function getUserLocation(fnOf) { 
@@ -103,20 +106,36 @@ function updateUserPosn(coords) {
     else {
         let myLatLng = new L.LatLng(coords["lat"], coords["lon"]);
         userMarker.setLatLng(myLatLng)
-        map.panTo(myLatLng);    
+        //map.panTo(myLatLng);    
     }    
 }
 
 
 
 function guess() {
-       
+    let cookies = getCookieDict()
+
+    fetch("{{url_for("api_bp.receive_guess")}}", {
+        method : "POST",
+        body: JSON.stringify({
+            userlat: coords["lat"],
+            userlong: coords["lon"]
+            })
+    })
+    .then((response) => response.json())
+    .then( (data) => {
+        data["locations"].map(makeCircle)
+    })
+
+    cookies["arcadeid"]
+
+
 }
 
 
 //On loadup
 //Create a leaflet map object with map tiles
-map = L.map('map').setView([51.505, -0.09], 13);
+map = L.map('map').setView([51.505, -0.09], 13); 
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

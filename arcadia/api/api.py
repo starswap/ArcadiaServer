@@ -31,7 +31,7 @@ def find_games():
 
 
 @api_bp.route("/game/<arcade_id>/guess", methods=['POST'])
-def recieve_guess(arcade_id):
+def receive_guess(arcade_id):
     userlat = float(request.values.get('userlat'))
     userlong = float(request.values.get('userlong'))
     poilat = float(request.values.get('poilat'))
