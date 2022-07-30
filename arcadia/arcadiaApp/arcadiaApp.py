@@ -41,7 +41,7 @@ def badges():
         resp.append((url, badge_name))
     return render_template("badgedisplayer.jinja2", response=resp)
 
-@app_bp.route('/register')
+@app_bp.route('/register', methods=["GET", "POST"])
 @requiremobile
 def register():
 
