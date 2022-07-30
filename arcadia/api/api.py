@@ -13,7 +13,21 @@ api_bp = Blueprint('api_bp', __name__)
 @api_bp.route("/game/find", methods = ['GET', 'POST'])
 def find_games():
     #needs to be sent current location of user in request
-    return "todo"
+    user_x = request.values.get('xcoord')
+    user_y = request.values.get('ycoord')
+    
+    # do logic here
+    
+    return Response(
+            response=json.dumps(
+                {
+                "radius":"50m",
+                "locations":[{"x":1.11111, "y":2.22222}, {"x":4.444444, "y":5.55555}, {"x":6.666666, "y":7.7777}]
+                }
+            ),
+            status=200,
+            mimetype='application/json'
+        )
 
 
 @api_bp.route("/game/<arcade_id>/guess", methods = ['POST'])
