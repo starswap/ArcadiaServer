@@ -9,7 +9,7 @@ from .arcadiaApp import arcadiaApp
 def init_app():
     """Create Flask application."""
     app = Flask(__name__, instance_relative_config=False,
-                template_folder="templates", static_folder="static")
+                template_folder="templates", static_folder="global_static")
 
     with app.app_context():
 
