@@ -6,8 +6,17 @@
 }
 
 body, 
+
 html, 
-div#container {width:100%; height:100%; background-color: var(--brandDarkGreen); padding: 0px; margin: 0px; color: var(--brandLightGreen); font-family: Chivo, Helvetica, Arial, sans-serif;
+
+div#container {
+    width:100%;
+    height:100%;
+    background-color: var(--brandDarkGreen);
+    padding: 0px;
+    margin: 0px;
+    color: var(--brandLightGreen);
+    font-family: Chivo, Helvetica, Arial, sans-serif;
 }
 div#container{
     display: flex;
@@ -27,6 +36,7 @@ div#hspace{
 }
 div#right{
 }
+
 div#bottom{
     flex-grow: 1;
 }
@@ -35,7 +45,6 @@ div#center{
     display:flex;
     padding-top:20vh;
     height:50%;
-
 }
 
 button#installButton {
