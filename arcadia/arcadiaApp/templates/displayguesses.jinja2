@@ -15,12 +15,13 @@ crossorigin=""></script>
 
 
 {% block main %}
-<div id="map" style="height:200px;">
+
+<div id="central" style="display:flex;flex-direction:column;justify-content:center;height:100%;">
+    <div id="map" style="flex-grow:2;margin-right: 15px;margin-left:15px; ">
+    </div>
+    <p id="choose" style="text-align:center; margin: 10px 10px 10px 10px;">First choose an arcade to naviagate to.</p>
+    <button id="guessButton" onclick="makeGuess()" style="display:none;margin: 0px 10px 10px 10px;">Make Guess</button>
 </div>
-<p id="choose">First you need to choose an arcade to naviagate to.</p>
-
-<button id="guessButton" onclick="getLocation()" style="display:none;">Make Guess</button>
-
 
 <script>
 
@@ -47,6 +48,8 @@ function circleClick(event) {
         document.cookie = "poilong="+circle.poilat.toString();
         document.cookie = "chosen=true";        
         document.getElementById("guessButton").style.display = "block";
+        document.getElementById("choose").innerHTML = "";
+
     }
 }
 
@@ -96,9 +99,12 @@ fetch("{{url_for("api_bp.find_games")}}")
 let cookies = getCookieDict()
 if (cookies["chosen"]) {
     document.getElementById("guessButton").style.display = "block";
+    document.getElementById("choose").innerHTML = "";
+
 }
 else {
     document.getElementById("guessButton").style.display = "none";
+    document.getElementById("choose").style.display = "block";    
 }
 
 

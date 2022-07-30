@@ -3,6 +3,7 @@ Important:
 
 Medium:
 Fix main page for mobile - and finish it!
+Add to PWA
 
 Low:
 
