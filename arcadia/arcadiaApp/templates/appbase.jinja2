@@ -21,7 +21,7 @@
                 <div id="spacer"></div>
                 <div id="rightnav">
                     {% if session['UserName'] %}
-                    <a href="#" id="logoutbutton">Logout</a>
+                    <a href="{{ url_for('app_bp.logout')}}" id="logoutbutton">Logout</a>
                     {% endif %}
 
                 </div>
