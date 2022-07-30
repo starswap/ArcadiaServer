@@ -8,6 +8,8 @@ earthRadius = 6378137
 arcadeScale = 100 / 16  # 100m
 circleScale = 100 / 16
 
+SECRETKEY = "supersecret!"
+
 
 def findPOICoords(xloc: int, yloc: int) -> list[dict[str, float]]:
     """This function will return the 3 nearest Park coordinates. Currently not querying OSM.
@@ -26,7 +28,7 @@ def findPOICoords(xloc: int, yloc: int) -> list[dict[str, float]]:
     ]
 
 
-def returnNearCoords(xloc: int, yloc: int):
+def returnNearCoords(xloc: int, yloc: int) -> list[dict[str]]: # it actually isnt...
 
     nearCoordsList = findPOICoords(xloc, yloc)  # replace this with osm data
 
@@ -36,18 +38,21 @@ def returnNearCoords(xloc: int, yloc: int):
         arcadeid = generateArcadeID(xloc=coords["x"], yloc=coords["y"])
         gametype = getGameType(arcadeid=arcadeid)
 
-        cxloc, cyloc = getCircleCoords(coords["x"],coords["y"])
-        
-        out.append({"circlelat":round(cxloc,6), "circlelong":round(cyloc,6), "poilat":xloc, "poilong":yloc, "id": arcadeid, "gametype": gametype})
+        cxloc, cyloc = getCircleCoords(coords["x"], coords["y"])
+
+        out.append({"circlelat": round(cxloc, 6), "circlelong": round(
+            cyloc, 6), "poilat": xloc, "poilong": yloc, "arcadeid": arcadeid, "gametype": gametype})
 
     return out
-    return [
-        {"lat": 51.370967, "long": -0.367160, "id": 1233123, "gametype": 2},
-        {"lat": 51.364901, "long": -0.354071},
-        {"lat": 51.379019, "long": -0.350626}
-    ]
+    # return [
+    #     {
+    #         "circlelat": 51.358187, "circlelong": -0.377608, "poilat": 51.364991,
+    #         "poilong": -0.361726, "arcadeid": 3632517084, "gametype": 0
+    #     },
+    # ]
 
-def coordOffsetter(xloc: int,yloc:int, mox:int, moy:int) -> tuple[float, float]:
+
+def coordOffsetter(xloc: int, yloc: int, mox: int, moy: int) -> tuple[float, float]:
     """Will generate coordinate offsets, given x and y coords, and offsets in meters
 
     Args:
@@ -59,38 +64,37 @@ def coordOffsetter(xloc: int,yloc:int, mox:int, moy:int) -> tuple[float, float]:
     Returns:
         tuple[float, float]: the new x location and new y location
     """
-    
+
     dX = mox/earthRadius  # Coordinate Offsets (Radians!)
     dY = moy/(earthRadius*cos(pi*xloc/180))
 
     newxloc = xloc + dY * 180/pi  # New Positions (decimal degrees)
     newyloc = yloc + dX * 180/pi
-    
-    return newxloc, newyloc
-    
 
-def getArcadeCoords( xloc: int, yloc: int):
+    return newxloc, newyloc
+
+
+def getArcadeCoords(xloc: int, yloc: int):
     aoX, aoY, _, _ = getRawOffsets(generateArcadeID(xloc, yloc))
 
     meter_aoX = aoX * arcadeScale  # Offsets in meters
     meter_aoY = aoY * arcadeScale
 
-    
     arcadexloc, arcadeyloc = coordOffsetter(xloc, yloc, meter_aoX, meter_aoY)
 
-    
     return arcadexloc, arcadeyloc
 
 
 def getCircleCoords(xloc, yloc):     # relies on arcade coord
 
-    arcadexloc, arcadeyloc = getArcadeCoords( xloc, yloc)
-    
+    arcadexloc, arcadeyloc = getArcadeCoords(xloc, yloc)
+
     _, _, roX, roY = getRawOffsets(generateArcadeID(xloc, yloc))
-    
+
     meter_roX = roX * circleScale  # Offsets in meters
     meter_roY = roY * circleScale
-    circlexloc, circleyloc = coordOffsetter(arcadexloc, arcadeyloc, meter_roX, meter_roY)
+    circlexloc, circleyloc = coordOffsetter(
+        arcadexloc, arcadeyloc, meter_roX, meter_roY)
     return circlexloc, circleyloc
 
 
@@ -108,7 +112,7 @@ def getRawOffsets(arcadeid: int) -> tuple[int, int,  int,  int]:
 
     now = datetime.now()
     datestr = now.strftime("%Y%m%d")  # will change daily (without repeating)
-    rnd = crc32_func(str(hex(arcadeid) + datestr + "SECRETKEY").encode("utf-8"))
+    rnd = crc32_func(str(hex(arcadeid) + datestr + SECRETKEY).encode("utf-8"))
     # This is used to generate offsets. This is hashed WITH DATE, so will be different every day.
 
     arcadeOffsetX = ((rnd >> 1) & 0b11111) - 16
