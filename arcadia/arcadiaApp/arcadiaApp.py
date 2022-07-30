@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session
+from flask import Blueprint, render_template, session, redirect, url_for
 from arcadia.arcadiaApp.requiremobile import requiremobile
 from flask import Blueprint, request
 from passlib.hash import argon2
@@ -20,10 +20,14 @@ def home():
 
 
 
-@app_bp.route('/register')
+@app_bp.route('/register', methods=["GET","POST"])
 @requiremobile
 def account():
-    if request.method == 'POST':
+
+    if request.method == 'GET':
+        return render_template("register.jinja2")
+
+    elif request.method == 'POST':
         username = request.values.get('username')
         password = request.values.get('password')
         hashed_password = argon2.hash(password)
@@ -31,21 +35,34 @@ def account():
         db, cur = get_db()
         cur.execute("""INSERT INTO 'Users' (UserName, PasswordHash) VALUES (%s,%s);""",
         (username, hashed_password))
+        return redirect(url_for("app_bp.home"))
 
-    return Response(
-        status = 200,
-        mimetype='application/json'
-    )
 
-@app_bp.route('/login')
+@app_bp.route('/login', methods=["GET","POST"])
 @requiremobile
 def login():
-    if request.method == 'POST':
+
+    if request.method == 'GET':
+        return render_template("login.jinja2",)
+
+    elif request.method == 'POST':
         username = request.values.get('username')
         password = request.values.get('password')
         hashed_password = argon2.hash(password)
-    
         
+        db, cur = get_db()
+        cur.execute("""SELECT PasswordHash FROM 'Users' WHERE UserName= %s;""", (username,))
+        resp = cur.fetchone()
+        if resp == None:
+            return redirect(url_for("account_bp.login"))
+        if not argon2.verify(password, resp["PasswordHash"]):
+            return redirect(url_for("account_bp.login"))
+        else:
+
+            #NOT SURE HOW TO AUTHENTICATE WITH COOKIE OR EQUIVELANT
+            pass
+
+
         
     return Response(
         status = 200,
