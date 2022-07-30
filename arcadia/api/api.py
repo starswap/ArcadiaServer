@@ -1,15 +1,20 @@
 from flask import Flask, request
 import json
 import haversine as hs
+from .arcadeLocation import arcadeLocation
+
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
 @app.route("/guess", methods = ['GET', 'POST'])
 def recieve_guess():
-    content = request.json
-    user_position = content['user_coordinates']
-    
+    if request.method == 'POST':
+        user_x = request.values.get('xcoord')
+        user_y = request.values.get('ycoord')
+        arcade_id = request.values.get('arcade_id')
+        arcade_x, arcade_y = arcadeLocation.get_arcade_coords(arcade_id)
+        hs.haversine
     return direction, distance
 
 @app.route("/getfirstclue", methods = ['GET', 'POST'])
