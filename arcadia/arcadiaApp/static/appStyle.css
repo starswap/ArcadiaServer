@@ -9,15 +9,23 @@ body{
     padding: 0px;
     margin: 0px;
     font-family: Chivo, Helvetica, Arial, sans-serif;
-
+    height: 100%;
+    
 }
 
 a.button{
     color: #1C491F;
     background-color: #A5D193;
-    border-radius: 10%;
-    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 10px 30px;
     
+    display: inline-block;
+    margin: 4px 2px;
+    text-decoration: none;
+}
+a.button:hover{
+    background-color: #86b175;
 }
 
 /* Main stuff & Header */
@@ -25,6 +33,7 @@ a.button{
 div#main {
     display:flex;
     flex-direction: column;
+    height: 100%;
 }
 nav#navbar{
     padding: 10px;
@@ -37,9 +46,8 @@ div#spacer{
 }
 
 div#maincontent{
-    flex-grow: 1;
-}
-div#maincontent{
+    height: 100%;
+
     flex-grow: 1;
 }
 
@@ -57,3 +65,15 @@ img#smallLogo{
 
 /* Home page */
 
+div#maincontainer{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+div#maintopimage{
+    height:40%;
+}
+div#mainbottom{
+    height: 50%;
+    flex-grow: 1;
+}
