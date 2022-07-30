@@ -2,10 +2,12 @@ from flask import Blueprint, request
 from passlib.hash import argon2
 from requests import Response
 from arcadia.db import get_db
+from .requiremobile import requiremobile
 
 account_bp = Blueprint('account_bp', __name__)
 
-@account_bp.route('/create')
+@account_bp.route('/register')
+@requiremobile
 def account():
     if request.method == 'POST':
         username = request.values.get('username')
@@ -22,6 +24,7 @@ def account():
     )
 
 @account_bp.route('/login')
+@requiremobile
 def login():
     if request.method == 'POST':
         username = request.values.get('username')
