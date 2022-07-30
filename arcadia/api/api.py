@@ -41,7 +41,6 @@ def recieve_guess(arcade_id):
         return "insufficient parameters"
     # arcade_id = request.values.get('arcade_id')
 
-
     arcade_x, arcade_y = getArcadeCoords( poilat, poilong)
 
     # distance = hs.haversine((arcade_x, arcade_y), (user_x, user_y), unit=Unit.METERS)
@@ -49,7 +48,7 @@ def recieve_guess(arcade_id):
 
     direction = direc(arcade_x, arcade_y, userlat, userlong)
 
-    if distance < 20:
+    if distance < 15:
         return Response(
             response=json.dumps({"success": "gamepermitted"}),
             status=200,
