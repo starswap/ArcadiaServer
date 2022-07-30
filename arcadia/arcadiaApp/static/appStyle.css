@@ -60,7 +60,7 @@ div#main {
 }
 nav#navbar{
     padding: 10px;
-    height: 55px;
+    height: 60px;
     /* border-bottom: 1px solid #A5D193; */
     display:flex;
 }
@@ -84,6 +84,20 @@ img#smallLogo{
     position: relative;
     top: 5px;
 
+}
+
+a#logoutbutton {
+    color: #A5D193;
+    border:  2px solid #A5D193;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 6px 14px;
+
+    
+    display: inline-block;
+    margin: 8px 6px;
+    text-decoration: none;
+    font-weight: 400;
 }
 
 /* Home page */
