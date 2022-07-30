@@ -10,6 +10,7 @@ body{
     margin: 0px;
     font-family: Chivo, Helvetica, Arial, sans-serif;
     height: 100%;
+    font-weight: 400;
     
 }
 
@@ -28,6 +29,21 @@ a.button:hover{
     background-color: #86b175;
 }
 
+h1{
+    font-family: 'Chivo';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 32px;
+
+}
+h2{
+    font-family: 'Chivo';
+font-style: normal;
+font-weight: 400;
+font-size: 21px;
+line-height: 25px;
+}
+
 /* Main stuff & Header */
 
 div#main {
@@ -38,7 +54,7 @@ div#main {
 nav#navbar{
     padding: 10px;
     height: 55px;
-    border-bottom: 1px solid #A5D193;
+    /* border-bottom: 1px solid #A5D193; */
     display:flex;
 }
 div#spacer{
@@ -71,9 +87,14 @@ div#maincontainer{
     height: 100%;
 }
 div#maintopimage{
-    height:40%;
+    height:60%;
+    background-image: url("https://images.unsplash.com/photo-1642086828110-6a83b077954b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80");
+    background-size: cover;
+    background-position: center center;
+
 }
 div#mainbottom{
     height: 50%;
     flex-grow: 1;
+    padding: 10px 40px;
 }
