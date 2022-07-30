@@ -19,7 +19,7 @@ crossorigin=""></script>
 </div>
 <p id="choose">First you need to choose an arcade to naviagate to.</p>
 
-<button onclick="getLocation()">Make Guess</button>
+<button id="guessButton" onclick="getLocation()" style="display:none;">Make Guess</button>
 
 
 <script>
@@ -39,11 +39,14 @@ function circleClick(event) {
     let cookies = getCookieDict()
     if (cookies["chosen"]) {
         //User has already made a choice
+        //We use cookies to ensure guesses persist over reload
     }
     else {
         let circle = event.target
         document.cookie = "poilat="+circle.poilat.toString();
         document.cookie = "poilong="+circle.poilat.toString();
+        document.cookie = "chosen=true";        
+        document.getElementById("guessButton").style.display = "block";
     }
 }
 
@@ -88,6 +91,15 @@ fetch("{{url_for("api_bp.find_games")}}")
         data["locations"].map(makeCircle)
     }
 )
+
+
+let cookies = getCookieDict()
+if (cookies["chosen"]) {
+    document.getElementById("guessButton").style.display = "block";
+}
+else {
+    document.getElementById("guessButton").style.display = "none";
+}
 
 
 </script>
