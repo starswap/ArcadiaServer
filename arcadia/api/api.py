@@ -11,7 +11,7 @@ api_bp = Blueprint('api_bp', __name__)
 
 
 @api_bp.route("/game/find", methods = ['GET', 'POST'])
-def get_first_clue():
+def find_games():
     #needs to be sent current location of user in request
     return ""
 
@@ -33,10 +33,14 @@ def recieve_guess(arcade_id):
             mimetype='application/json'
         )
 
-@api_bp.route("/game/<id>/clue", methods = ['GET', 'POST'])
-def get_clue():
+@api_bp.route("/game/<arcade_id>/clue", methods = ['GET', 'POST'])
+def get_clue(arcade_id):
     #needs to be sent current location of user in request
-    return ""
+    return api_bp.response_class(
+            response=json.dumps({"key":"str"}),
+            status=200,
+            mimetype='application/json'
+        )
 
 
 
