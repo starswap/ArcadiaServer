@@ -30,7 +30,9 @@ a.button, button {
     display: inline-block;
     margin: 4px 2px;
     text-decoration: none;
+    font-weight: 700;
 }
+
 a.button:hover{
     background-color: #86b175;
 }
