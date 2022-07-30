@@ -1,14 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700&family=Dela+Gothic+One&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700&family=Dela+Gothic+One&display=swap');
 
 :root {
     --brandDarkGreen: #1C491F;
     --brandLightGreen: #A5D193; 
-}
+} */
 
-body, 
-html, 
+/* body, 
+html,  */
 
-div#container {
+/* div#container {
     width:100%;
     height:100%;
     background-color: var(--brandDarkGreen);
@@ -18,9 +18,9 @@ div#container {
     font-family: Chivo, Helvetica, Arial, sans-serif;
     display: flex;
     flex-direction: column;
-}
+} */
 
-div#top{
+/* div#top{
     height: 50px;
     border-bottom: 1px solid var(--brandLightGreen);
     display:flex;
@@ -98,21 +98,21 @@ input#submit:hover{
     filter: brightness(70%);
 }
 
-form{ /*Don't @ me */
+form{ /*Don't @ me 
     width: 60%;
     margin-top: 30%;
     margin-left: 20%;
     margin-right: 20%;
-}
+}*/
 
-a:link { /* link */
+/* a:link { /* link 
     color:var(--brandLightGreen);
     text-decoration: none;
 }
   
-  a:hover { /* mouse on link */
+  a:hover { /* mouse on link 
     color:var(--brandLightGreen);
     filter: brightness(70%);
     text-decoration: underline;
 }
-  
+   */ 

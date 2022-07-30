@@ -2,7 +2,7 @@
 {% block main %}
 
 
-<div id="maincontainer">
+<div id="accountcontainer">
 
 {# <img  src="https://images.unsplash.com/photo-1642086828110-6a83b077954b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80"> #}
     <div id="accounttopimage">
@@ -10,12 +10,14 @@
 
     <div id="accountbottom">
 
-        <h1>{% block typename %}{% endblock %}</h1>
-         <h2>Find an arcade now to play exciting games</h2>
-        <a href="url" class="button">Find an arcade</a>
-
+        <div class="block">
+            <h1>{% block typename %}{% endblock %}</h1>
+            <h2>{% block typesubtext %}{% endblock %}</h2>
+        </div>
+         <hr>
+        <div class="block">
         {% block forms %}{% endblock %}
-
+        </div>
 
     </div>
 
