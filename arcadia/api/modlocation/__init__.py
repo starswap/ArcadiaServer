@@ -36,11 +36,9 @@ def returnNearCoords(xloc: int, yloc: int):
         arcadeid = generateArcadeID(xloc=coords["x"], yloc=coords["y"])
         gametype = getGameType(arcadeid=arcadeid)
 
-        # circlecoords = getCircleCoords(arcadeid, xloc, yloc)
-
-        cxloc, cyloc = getCircleCoords(arcadeid,coords["x"],coords["y"])
+        cxloc, cyloc = getCircleCoords(coords["x"],coords["y"])
         
-        out.append({"lat":cxloc, "long":cyloc, "id": arcadeid, "gametype": gametype})
+        out.append({"circlelat":round(cxloc,6), "circlelong":round(cyloc,6), "poilat":xloc, "poilong":yloc, "id": arcadeid, "gametype": gametype})
 
     return out
     return [
@@ -71,8 +69,8 @@ def coordOffsetter(xloc: int,yloc:int, mox:int, moy:int) -> tuple[float, float]:
     return newxloc, newxloc
     
 
-def getArcadeCoords(arcadeid, xloc: int, yloc: int):
-    aoX, aoY, _, _ = getRawOffsets(arcadeid)
+def getArcadeCoords( xloc: int, yloc: int):
+    aoX, aoY, _, _ = getRawOffsets(generateArcadeID(xloc, yloc))
 
     meter_aoX = aoX * arcadeScale  # Offsets in meters
     meter_aoY = aoY * arcadeScale
@@ -83,12 +81,12 @@ def getArcadeCoords(arcadeid, xloc: int, yloc: int):
     return arcadexloc, arcadeyloc
 
 
-def getCircleCoords(arcadeid, xloc, yloc):     # relies on arcade coord
+def getCircleCoords(xloc, yloc):     # relies on arcade coord
 
     print(xloc,yloc,"ok")
-    arcadexloc, arcadeyloc = getArcadeCoords(arcadeid, xloc, yloc)
+    arcadexloc, arcadeyloc = getArcadeCoords( xloc, yloc)
     
-    _, _, roX, roY = getRawOffsets(arcadeid)
+    _, _, roX, roY = getRawOffsets(generateArcadeID(xloc, yloc))
     
     meter_roX = roX * circleScale  # Offsets in meters
     meter_roY = roY * circleScale
@@ -112,7 +110,7 @@ def getRawOffsets(arcadeid: int) -> tuple[int, int,  int,  int]:
 
     now = datetime.now()
     datestr = now.strftime("%Y%m%d")  # will change daily (without repeating)
-    rnd = crc32_func(str(hex(arcadeid) + datestr).encode("utf-8"))
+    rnd = crc32_func(str(hex(arcadeid) + datestr + "SECRETKEY").encode("utf-8"))
     # This is used to generate offsets. This is hashed WITH DATE, so will be different every day.
 
     arcadeOffsetX = ((rnd >> 1) & 0b11111) - 16

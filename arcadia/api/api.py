@@ -32,11 +32,13 @@ def find_games():
 def recieve_guess(arcade_id):
     user_x = request.values.get('xcoord')
     user_y = request.values.get('ycoord')
+    poilat = request.values.get('poilat')
+    poilong = request.values.get('poilong')
     # arcade_id = request.values.get('arcade_id')
     
     
     #! also pull the poi coords out of the database for the arcade ID
-    arcade_x, arcade_y = getArcadeCoords(arcade_id, xloc, xlat)
+    arcade_x, arcade_y = getArcadeCoords( xloc, xlat)
     
     
     # distance = hs.haversine((arcade_x, arcade_y), (user_x, user_y), unit=Unit.METERS)
@@ -54,12 +56,12 @@ def recieve_guess(arcade_id):
     )
 
 
-#! I am not sure this is necessary?
-@api_bp.route("/game/<arcade_id>/clue", methods=['GET', 'POST'])
-def get_clue(arcade_id):
-    # needs to be sent current location of user in request
-    return Response(
-        response=json.dumps({"key": "str"}),
-        status=200,
-        mimetype='application/json'
-    )
+# #! I am not sure this is necessary?
+# @api_bp.route("/game/<arcade_id>/clue", methods=['GET', 'POST'])
+# def get_clue(arcade_id):
+#     # needs to be sent current location of user in request
+#     return Response(
+#         response=json.dumps({"key": "str"}),
+#         status=200,
+#         mimetype='application/json'
+#     )
