@@ -66,7 +66,7 @@ def coordOffsetter(xloc: int,yloc:int, mox:int, moy:int) -> tuple[float, float]:
     newxloc = xloc + dY * 180/pi  # New Positions (decimal degrees)
     newyloc = yloc + dX * 180/pi
     
-    return newxloc, newxloc
+    return newxloc, newyloc
     
 
 def getArcadeCoords( xloc: int, yloc: int):
@@ -75,6 +75,7 @@ def getArcadeCoords( xloc: int, yloc: int):
     meter_aoX = aoX * arcadeScale  # Offsets in meters
     meter_aoY = aoY * arcadeScale
 
+    
     arcadexloc, arcadeyloc = coordOffsetter(xloc, yloc, meter_aoX, meter_aoY)
 
     
@@ -83,16 +84,13 @@ def getArcadeCoords( xloc: int, yloc: int):
 
 def getCircleCoords(xloc, yloc):     # relies on arcade coord
 
-    print(xloc,yloc,"ok")
     arcadexloc, arcadeyloc = getArcadeCoords( xloc, yloc)
     
     _, _, roX, roY = getRawOffsets(generateArcadeID(xloc, yloc))
     
     meter_roX = roX * circleScale  # Offsets in meters
     meter_roY = roY * circleScale
-    
     circlexloc, circleyloc = coordOffsetter(arcadexloc, arcadeyloc, meter_roX, meter_roY)
-    
     return circlexloc, circleyloc
 
 

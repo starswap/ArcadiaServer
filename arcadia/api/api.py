@@ -37,8 +37,9 @@ def recieve_guess(arcade_id):
     # arcade_id = request.values.get('arcade_id')
     
     
+    
     #! also pull the poi coords out of the database for the arcade ID
-    arcade_x, arcade_y = getArcadeCoords( xloc, xlat)
+    arcade_x, arcade_y = getArcadeCoords( poilat, poilong)
     
     
     # distance = hs.haversine((arcade_x, arcade_y), (user_x, user_y), unit=Unit.METERS)
@@ -46,6 +47,7 @@ def recieve_guess(arcade_id):
     
     direction = direc(arcade_x, arcade_y, user_x, user_y)
     
+    print(dist(51.371507,  -0.378113, 51.364991, -0.361726))
     
     response_dict = {'direction': str(distance), 'distance': str(direction)}
 
