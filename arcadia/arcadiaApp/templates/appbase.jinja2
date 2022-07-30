@@ -20,7 +20,10 @@
                 </div>
                 <div id="spacer"></div>
                 <div id="rightnav">
-                    <span>Right</span>
+                    {% if session['UserName'] %}
+                    <a href="#" id="logoutbutton">Logout</a>
+                    {% endif %}
+
                 </div>
 
             
