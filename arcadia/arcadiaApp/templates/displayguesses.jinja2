@@ -20,7 +20,7 @@ crossorigin=""></script>
     <div id="map" style="flex-grow:2;margin-right: 15px;margin-left:15px; ">
     </div>
     <p id="choose" style="text-align:center; margin: 10px 10px 10px 10px;">First choose an arcade to naviagate to.</p>
-    <button id="guessButton" onclick="makeGuess()" style="display:none;margin: 0px 10px 10px 10px;">Guess Here!</button>
+    <button id="guessButton" onclick="getUserLocation(guess)" style="display:none;margin: 0px 10px 10px 10px;">Guess Here!</button>
 </div>
 
 <script>
@@ -112,22 +112,22 @@ function updateUserPosn(coords) {
 
 
 
-function guess() {
+function guess(coords) {
     let cookies = getCookieDict()
 
-    fetch("{{url_for("api_bp.receive_guess")}}", {
+    fetch("{{url_for("api_bp.receive_guess",arcade_id='DUMMYARCADEID')}}".replace("DUMMYARCADEID",cookies["arcadeid"]), {
         method : "POST",
         body: JSON.stringify({
             userlat: coords["lat"],
-            userlong: coords["lon"]
-            })
+            userlong: coords["lon"],
+            poilat: Number(cookies["poilat"]),
+            poilong: Number(cookies["poilong"])
+        })
     })
     .then((response) => response.json())
     .then( (data) => {
-        data["locations"].map(makeCircle)
+        console.log(data)
     })
-
-    cookies["arcadeid"]
 
 
 }
