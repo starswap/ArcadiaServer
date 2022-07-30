@@ -1,5 +1,5 @@
 {% extends "appbase.jinja2" %}
-{% block extrastyles %}<link rel="stylesheet" href="{{url_for('app_bp.static', filename='accountStyle.css')}}">{% endblock %}
+{% block header %}<link rel="stylesheet" href="{{url_for('app_bp.static', filename='accountStyle.css')}}">{% endblock %}
 {% block main %}
 
     <form method="POST">
