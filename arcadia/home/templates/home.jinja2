@@ -4,7 +4,6 @@
 
 <html>
     <head>
-        
     </head>
     <body>
 
@@ -30,6 +29,8 @@
                     <h1>Play the Earth!</h1>
                     <p>Arcadia is a brand new way of interacting with the outdoors.</p> 
                     <button id="installButton">Install Arcadia Now! <i class="fa-solid fa-location-dot"></i></button>
+                    <p id="mobileOnlyNotification">Open this page on your mobile phone to install Arcadia!</p>
+
                 </div>
 
                 <div style="flex-grow: 1;"></div>
@@ -39,6 +40,15 @@
         </div>
 
     </div>
+
+        <script>
+            if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+               document.getElementById("mobileOnlyNotification").style.display = "none";
+            }  
+            else {
+               document.getElementById("installButton").style.display = "none";
+            }              
+        </script>        
 
     </body>
 </html>

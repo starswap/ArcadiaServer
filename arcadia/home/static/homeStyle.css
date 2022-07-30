@@ -17,6 +17,7 @@ div#top{
     height: 50px;
     border-bottom: 1px solid var(--brandLightGreen);
     display:flex;
+    align-items: center;
 }
 div#left{
 
@@ -44,4 +45,8 @@ button#installButton {
     color: var(--brandDarkGreen);
     background-color: var(--brandLightGreen);
     font-weight: bold;
+}
+
+#mobileOnlyNotification {
+    font-style: italic;
 }
