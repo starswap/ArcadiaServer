@@ -22,7 +22,7 @@ def seed_db():
         cur.execute(f.read())
 
 
-def get_config(filename="database.ini", section="cockroach"):
+def get_config(filename="database.ini", section="quentin"):
     """Parses and gets database config from file"""
     parser = ConfigParser()
     parser.read(filename)
