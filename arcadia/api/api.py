@@ -1,4 +1,4 @@
-from flask import Blueprint, Flask, request
+from flask import Blueprint, Flask, request, Response
 import json
 import haversine as hs
 from .arcadeLocation import arcadeLocation
@@ -13,7 +13,7 @@ api_bp = Blueprint('api_bp', __name__)
 @api_bp.route("/game/find", methods = ['GET', 'POST'])
 def find_games():
     #needs to be sent current location of user in request
-    return ""
+    return "todo"
 
 
 @api_bp.route("/game/<arcade_id>/guess", methods = ['GET', 'POST'])
@@ -27,7 +27,7 @@ def recieve_guess(arcade_id):
         direction = 'placeholder'
         response_dict = {'direction': direction, 'distance': distance}
         
-        return api_bp.response_class(
+        return Response(
             response=json.dumps(response_dict),
             status=200,
             mimetype='application/json'
@@ -36,7 +36,7 @@ def recieve_guess(arcade_id):
 @api_bp.route("/game/<arcade_id>/clue", methods = ['GET', 'POST'])
 def get_clue(arcade_id):
     #needs to be sent current location of user in request
-    return api_bp.response_class(
+    return Response(
             response=json.dumps({"key":"str"}),
             status=200,
             mimetype='application/json'
