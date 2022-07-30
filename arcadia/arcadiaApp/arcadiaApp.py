@@ -88,10 +88,12 @@ def login():
                 'SELECT PasswordHash FROM "Users" WHERE UserName= %s;', (username,))
             resp = cur.fetchone()
 
+            print(resp)
+            
             if resp == None:
                 return redirect(url_for("account_bp.login"))
 
-            if not argon2.verify(password, resp["PasswordHash"]):
+            if not argon2.verify(password, resp["passwordhash"]):
                 return redirect(url_for("account_bp.login"))
 
             else:
