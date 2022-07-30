@@ -1,0 +1,24 @@
+{% extends "appbase.jinja2" %}
+{% block main %}
+
+
+<div id="maincontainer">
+
+{# <img  src="https://images.unsplash.com/photo-1642086828110-6a83b077954b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80"> #}
+    <div id="accounttopimage">
+    </div>
+
+    <div id="accountbottom">
+
+        <h1>{% block typename %}{% endblock %}</h1>
+         <h2>Find an arcade now to play exciting games</h2>
+        <a href="url" class="button">Find an arcade</a>
+
+        {% block forms %}{% endblock %}
+
+
+    </div>
+
+
+</div >
+{% endblock %}
