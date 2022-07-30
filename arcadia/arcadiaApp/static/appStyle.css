@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700&family=Dela+Gothic+One&display=swap');
+
+/* Base Stuff */
+
+html,
+body{
+    background-color: #1C491F;
+    color: #A5D193;
+    padding: 0px;
+    margin: 0px;
+}
+
+
+/* Main stuff & Header */
+
+div#main {
+    display:flex;
+    flex-direction: column;
+}
+nav#navbar{
+    height: 50px;
+    border-bottom: 1px solid #A5D193;
+}

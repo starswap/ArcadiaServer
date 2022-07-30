@@ -1,11 +1,31 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Title of the document</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>{% block title %}{% endblock %}</title>
         <script src="https://kit.fontawesome.com/406fdaf1d8.js" crossorigin="anonymous"></script> <!-- font awesome -->
         <link rel="stylesheet" href="{{ url_for('app_bp.static', filename='appStyle.css') }}" />
     </head>
     <body>
-        {% block main %}{% endblock %}
+
+        <div id="main">
+            <nav id="navbar">
+
+                <div id="leftnav">
+                    <span>Left</span>
+                </div>
+
+                <div id="rightnav">
+                    <span>Right</span>
+                </div>
+
+            
+            </nav>
+
+            <div id="maincontent">
+                {% block main %}{% endblock %}
+            </div>
+        </div>
     </body>
 </html>
