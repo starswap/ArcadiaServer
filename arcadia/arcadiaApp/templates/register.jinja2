@@ -4,9 +4,11 @@
 
     <form method="POST">
         <h2> Register </h2>
-        <input type="text" id="username" name="username" placeholder = "Username" required><br><br>
-        <input type="password" id="password" name="password" placeholder = "Password" required><br><br>
-        <input type="submit" value="Submit"><br><br>
+        <label> Username </label><br>
+        <input type="text" id="general" name="username" required><br><br>
+        <label> Password </label><br>
+        <input type="password" id="general" name="password" required><br><br>
+        <input id="submit" type="submit" value="Submit"><br><br>
     </form> 
 
 {% endblock %}

@@ -69,16 +69,33 @@ button#submitButton {
     font-weight: bold;
 }
 
-input{
+input#general{
     width:90%;
     padding: 5px 10px 5px 10px;
-    border-radius: 3px;
-    border: none;
+    border-radius: 6px;
+    border-color: var(--brandLightGreen);
+    border-style: solid;
+    color: var(--brandLightGreen);
+    background-color: var(--brandDarkGreen);
+    font-weight: bold;
+    line-height: 24px;
+
+}
+
+input#submit{
+    width:30%;
+    padding: 5px 10px 5px 10px;
+    border-radius: 6px;
+    border-style: none;
     color: var(--brandDarkGreen);
     background-color: var(--brandLightGreen);
     font-weight: bold;
     line-height: 24px;
 
+}
+
+input#submit:hover{
+    filter: brightness(70%);
 }
 
 form{ /*Don't @ me */
