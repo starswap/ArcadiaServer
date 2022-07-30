@@ -1,2 +1,1 @@
-# BackyardHacksIII
-A repository for BackyardHacksIII
+# Server for Arcadia
