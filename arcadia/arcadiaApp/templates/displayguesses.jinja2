@@ -26,13 +26,34 @@ crossorigin=""></script>
 
 var circles = []
 
+
+function getCookieDict() {
+    let cookies = {}
+    document.cookie.split(";").map((a) => {
+        cookies[a.trim().split("=")[0]] = a.trim().split("=")[1]
+    })
+    return cookies
+}
+
+function circleClick(event) {
+    let cookies = getCookieDict()
+    if (cookies["chosen"]) {
+        //User has already made a choice
+    }
+    else {
+        let circle = event.target
+        document.cookie = "poilat="+circle.poilat.toString();
+        document.cookie = "poilong="+circle.poilat.toString();
+    }
+}
+
 function makeCircle(circleDetails) {
     let circle = L.circle([circleDetails.circlelat, circleDetails.circlelong], {
         color: 'red',
         fillColor: '#f03',
         fillOpacity: 0.5,
         radius: circleDetails.radius
-    }).addTo(map);
+    }).addTo(map).on("click", circleClick);
     circle.poilat = circleDetails.poilat
     circle.poilong = circleDetails.poilong
     circles.push(circle)
