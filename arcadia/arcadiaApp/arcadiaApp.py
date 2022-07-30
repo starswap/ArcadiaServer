@@ -20,7 +20,7 @@ def home():
 
 @app_bp.route('/guesser')
 @requiremobile
-def home():
+def guesses():
     return render_template("displayguesses.jinja2")
 
 
