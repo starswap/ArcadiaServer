@@ -21,7 +21,7 @@ def find_games():
     return Response(
         response=json.dumps(
             {
-                "radius": 50,
+                
                 "locations": returnNearCoords(user_x, user_y)
             }
         ),
