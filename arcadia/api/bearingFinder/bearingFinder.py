@@ -1,4 +1,4 @@
-from ast import main
+
 import math
 
 def get_bearing(start_location, end_location):
@@ -10,8 +10,25 @@ def get_bearing(start_location, end_location):
     B = math.cos(user_x)*math.sin(arcade_x) - math.sin(user_x)*math.cos(arcade_x)*math.cos(user_y -arcade_y)
     answer_radian = math.atan2(A , B)
     answer = math.degrees(answer_radian)
-    answer = round(answer)
-    return answer
+    if 22.5> answer > 0:
+        letter_answer = 'N'
+    elif 67.5> answer > 22.5:
+        letter_answer = 'NE'
+    elif 112.5> answer > 67.5:
+        letter_answer = 'E'
+    elif 157.5> answer > 112.5:
+        letter_answer = 'SE'
+    elif 202.5> answer > 157.5:
+        letter_answer = 'S'
+    elif 247.5> answer > 202.5:
+        letter_answer = 'SW'
+    elif 292.5> answer > 247.5:
+        letter_answer = 'W'
+    elif 337.5> answer > 292.5:
+        letter_answer = 'NW'
+    elif answer > 337.5:
+        letter_answer = 'N'
+    return letter_answer
 
     
 if __name__ == '__main__':
