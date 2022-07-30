@@ -94,7 +94,7 @@ div#maintopimage{
 
 }
 div#mainbottom{
-    height: 50%;
+    /* height: 50%; */
     flex-grow: 1;
     padding: 10px 40px;
 }
