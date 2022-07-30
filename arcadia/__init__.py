@@ -10,7 +10,12 @@ def init_app():
     app = Flask(__name__, instance_relative_config=False,
                 template_folder="templates", static_folder="global_static")
 
+
     with app.app_context():
+        from . import db # noqa
+
+        # db.init_db(); db.seed_db() 
+
 
         app.register_blueprint(home.home_bp)
         app.register_blueprint(api.api_bp, url_prefix="/api")
