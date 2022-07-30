@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700&family=Dela+Gothic+One&display=swap');
+
+/* Base Stuff */
+
+html,
+body{
+    background-color: #1C491F;
+    color: #A5D193;
+    padding: 0px;
+    margin: 0px;
+    font-family: Chivo, Helvetica, Arial, sans-serif;
+
+}
+
+
+/* Main stuff & Header */
+
+div#main {
+    display:flex;
+    flex-direction: column;
+}
+nav#navbar{
+    padding: 10px;
+    height: 55px;
+    border-bottom: 1px solid #A5D193;
+    display:flex;
+}
+div#spacer{
+    flex-grow: 1;
+}
+
+div#maincontent{
+    flex-grow: 1;
+}
+div#maincontent{
+    flex-grow: 1;
+}
+
+span#title{
+    font-weight:bold;
+    font-family: Dela Gothic One, Helvetica, Arial, sans-serif;
+    font-size: 32px;
+}
+img#smallLogo{
+    padding: 0px 10px;
+    position: relative;
+    top: 5px;
+
+}
+
+/* Home page */
