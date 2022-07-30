@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700&family=Dela+Gothic+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700;900&family=Dela+Gothic+One&display=swap');
 
 /* Base Stuff */
 
@@ -98,3 +98,60 @@ div#mainbottom{
     flex-grow: 1;
     padding: 10px 40px;
 }
+
+
+/* Shared login and register (account) stuff */
+
+
+div#accountcontainer{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+div#accounttopimage{
+    height:40%;
+    background-image: url("https://images.unsplash.com/photo-1642086828110-6a83b077954b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80");
+    background-size: cover;
+    background-position: center center;
+
+}
+div#accountbottom{
+    /* height: 50%; */
+    flex-grow: 1;
+    /* padding: 10px 40px; */
+}
+
+div.block{
+    padding: 10px 40px;
+}
+
+label{
+    font-weight: 700;
+}
+
+
+
+/* input#general{
+    width:90%;
+    padding: 5px 10px 5px 10px;
+    border-radius: 6px;
+    border-color: var(--brandLightGreen);
+    border-style: solid;
+    color: var(--brandLightGreen);
+    background-color: var(--brandDarkGreen);
+    font-weight: bold;
+    line-height: 24px;
+
+}
+
+input#submit{
+    width:30%;
+    padding: 5px 10px 5px 10px;
+    border-radius: 6px;
+    border-style: none;
+    color: var(--brandDarkGreen);
+    background-color: var(--brandLightGreen);
+    font-weight: bold;
+    line-height: 24px;
+
+} */
