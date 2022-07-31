@@ -80,7 +80,6 @@ def register():
 @app_bp.route('/login', methods=["GET", "POST"])
 @requiremobile
 def login():
-
     if request.method == 'GET':
         if session.get("UserID"):
             redirect(url_for("app_bp.home"))
@@ -89,7 +88,6 @@ def login():
         if not session.get("UserID"):
             username = request.values.get('username')
             password = request.values.get('password')
-            hashed_password = argon2.hash(password)
 
             db, cur = get_db()
             cur.execute(
@@ -100,7 +98,7 @@ def login():
                 flash("Incorrect Login details")
                 return redirect(url_for("app_bp.login"))
 
-            if not argon2.verify(hashed_password, resp["passwordhash"]): # Bad password for user
+            if not argon2.verify(password, resp["passwordhash"]): # Bad password for user
                 flash("Incorrect Login details")
                 return redirect(url_for("app_bp.login"))
 
