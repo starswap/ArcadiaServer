@@ -10,6 +10,7 @@ arcadeScale = 100 / 16  # 100m
 circleScale = 100 / 16
 
 searchRadius = 5000.0
+mapCircleradius = 150.0
 
 SECRETKEY = "supersecret!"
 
@@ -69,7 +70,7 @@ def returnNearCoords(xloc: int, yloc: int) -> list[dict[str]]:
             axloc, ayloc = getArcadeCoords(coords["x"], coords["y"])
             
             
-        out.append({"circlelat": round(cxloc, 6), "circlelong": round(cyloc, 6), "arcadelat": round(axloc, 6), "arcadelong": round(ayloc, 6), "poilat": coords["x"], "poilong": coords["y"], "arcadeid": arcadeid, "gametype": gametype, "radius": 50,})
+        out.append({"circlelat": round(cxloc, 6), "circlelong": round(cyloc, 6), "arcadelat": round(axloc, 6), "arcadelong": round(ayloc, 6), "poilat": coords["x"], "poilong": coords["y"], "arcadeid": arcadeid, "gametype": gametype, "radius": mapCircleradius,})
 
     return out
     # return [
