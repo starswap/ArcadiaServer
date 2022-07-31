@@ -28,7 +28,7 @@ def guesser():
 @app_bp.route('/badges')
 @requiremobile
 def badges():
-    user_id = session["UserID"]
+    user_id = session.get("userid")
     db, cur = get_db()
     cur.execute(('SELECT BadgeID FROM "UserBadges" WHERE UserID=%s'), (user_id,))
     response = cur.fetchall()
@@ -92,7 +92,7 @@ def login():
                 flash("Incorrect Login details")
                 return redirect(url_for("app_bp.login"))
 
-            if not argon2.verify(password, resp["passwordhash"]): # Bad password for user
+            if not argon2.verify(hashed_password, resp["passwordhash"]): # Bad password for user
                 flash("Incorrect Login details")
                 return redirect(url_for("app_bp.login"))
 
