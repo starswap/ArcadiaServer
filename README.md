@@ -8,4 +8,4 @@ Arcadia is a mobile treasure hunt which enables you to find secret virtual arcad
 Get outoors, find an arcade machine and get playing! Then take a moment to enjoy the natural location to which you have been brought.
 
 ## Technical Details
-Arcadia is a Progressive Web App built with Python Flask and HTML/JS/CSS. You can download the app by visiting arcadia.qduff.com on your mobile device.
+Arcadia is a Progressive Web App built with Python Flask and HTML/JS/CSS. You can download the app by visiting <a href="https://arcadia.qduff.com">arcadia.qduff.com</a> on your mobile device.
