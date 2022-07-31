@@ -28,7 +28,7 @@ def guesser():
 @app_bp.route('/badges')
 @requiremobile
 def badges():
-    user_id = session.get("userid")
+    user_id = session.get("UserID")
     db, cur = get_db()
     cur.execute(('SELECT BadgeID FROM "UserBadges" WHERE UserID=%s'), (user_id,))
     response = cur.fetchall()
