@@ -3,25 +3,15 @@
     "name": "Play the earth!",
     "icons": [
       {
-        "src": "/static/icons-vector.svg",
+        "src": "/global_static/logo.svg",
         "type": "image/svg+xml",
-        "sizes": "512x512"
-      },
-      {
-        "src": "/static/icons-192.png",
-        "type": "image/png",
-        "sizes": "192x192"
-      },
-      {
-        "src": "/static/icons-512.png",
-        "type": "image/png",
-        "sizes": "512x512"
+        "sizes": "150x150"
       }
     ],
     "start_url": "/app",
     "background_color": "#1C491F",
     "display": "standalone",
-    "scope": "/",
+    "scope": "/app",
     "theme_color": "#A5D193",
     "shortcuts": [
         {
@@ -29,7 +19,7 @@
             "short_name": "Home",
             "description": "Go to arcadia home page",
             "url": "/app",
-            "icons": [{ "src": "/static/tomorrow.png", "sizes": "192x192" }]
+            "icons": [{ "src": "/global_static/logo.svg", "sizes": "150x150" }]
           },
 
       {
@@ -37,21 +27,10 @@
         "short_name": "Play",
         "description": "Play games",
         "url": "/app/guesser",
-        "icons": [{ "src": "/static/tomorrow.png", "sizes": "192x192" }]
+        "icons": [{ "src": "/global_static/logo.svg", "sizes": "150x150" }]
       }
     ],
-    "description": "Arcadia game platform.",
-    "screenshots": [
-      {
-        "src": "/static/screenshot1.png",
-        "type": "image/png",
-        "sizes": "540x720"
-      },
-      {
-        "src": "/static/screenshot2.jpg",
-        "type": "image/jpg",
-        "sizes": "540x720"
-      }
-    ]
+    "description": "Arcadia game platform."
+   
   }
   
