@@ -1,5 +1,5 @@
 import re
-from flask import Blueprint, flash, render_template, session, redirect, url_for
+from flask import Blueprint, flash, render_template, send_file, session, redirect, url_for
 from arcadia.arcadiaApp.requiremobile import requiremobile
 from flask import Blueprint, request
 from passlib.hash import argon2
@@ -14,7 +14,7 @@ app_bp = Blueprint('app_bp', __name__, template_folder="templates",
 @app_bp.route('/')
 @requiremobile
 def home():
-    if session.get("UserID"):
+    if session.get("UserID") is not None:
         return render_template("apphome.jinja2")
     else:
         return redirect(url_for("app_bp.login"))
@@ -28,7 +28,7 @@ def guesser():
 @app_bp.route('/badges')
 @requiremobile
 def badges():
-    user_id = session["UserID"]
+    user_id = session.get("UserID")
     db, cur = get_db()
     cur.execute(('SELECT BadgeID FROM "UserBadges" WHERE UserID=%s'), (user_id,))
     response = cur.fetchall()
@@ -92,7 +92,7 @@ def login():
                 flash("Incorrect Login details")
                 return redirect(url_for("app_bp.login"))
 
-            if not argon2.verify(password, resp["passwordhash"]): # Bad password for user
+            if not argon2.verify(hashed_password, resp["passwordhash"]): # Bad password for user
                 flash("Incorrect Login details")
                 return redirect(url_for("app_bp.login"))
 
@@ -114,4 +114,5 @@ def logout():
     if session.get("UserName"):
         session.pop("UserName")
     return redirect(url_for("app_bp.home"))
+
 
