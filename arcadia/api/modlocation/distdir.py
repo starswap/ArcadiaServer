@@ -1,6 +1,6 @@
 from math import radians, cos, sin, asin, sqrt, atan2, degrees
 
-def bearingToCardinal(bearing):
+def bearingToCardinal(bearing: int) -> str:
     if 22.5 > bearing and bearing > 0:
         cardinal = 'N'
     elif 67.5 > bearing and bearing > 22.5:
@@ -21,17 +21,17 @@ def bearingToCardinal(bearing):
         cardinal = 'N'
     return cardinal
 
-def dist(lat1, long1, lat2, long2) -> int:
+def dist(lat1: float, long1: float, lat2: float, long2: float) -> float:
     """Returns distance IN METERS
 
     Args:
-        lat1 (int): lat 1
-        long1 (int): long 1
-        lat2 (int): lat 2
-        long2 (int): long2
+        lat1 (float): lat 1
+        long1 (float): long 1
+        lat2 (float): lat 2
+        long2 (float): long2
 
     Returns:
-        int: Distance in meters
+        float: Distance in meters
     """
 
     R = 6372.8 
@@ -46,7 +46,7 @@ def dist(lat1, long1, lat2, long2) -> int:
 
     return R * c * 1000 # meters?
 
-def direc(lat1, long1, lat2, long2):
+def direc(lat1: float, long1: float, lat2: float, long2: float) -> float:
     dLon = (long2 - long1)
     x = cos(radians(lat2)) * sin(radians(dLon))
     y = cos(radians(lat1)) * sin(radians(lat2)) - sin(radians(lat1)) * cos(radians(lat2)) * cos(radians(dLon))
