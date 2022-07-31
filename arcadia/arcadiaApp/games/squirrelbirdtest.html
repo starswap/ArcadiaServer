@@ -1,58 +1,124 @@
 <style>
-body,
-canvas{
-    padding: 0px;
-    margin: 0px;
-    overflow: hidden;
+    body,
+    canvas {
+        padding: 0px;
+        margin: 0px;
+        overflow: hidden;
 
-}
+    }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <canvas id="gamecanvas"></canvas>
 <script>
-var canvas = document.getElementById("gamecanvas");
-canvas.width = document.body.clientWidth; //document.width is obsolete
-canvas.height = document.body.clientHeight; //document.height is obsolete
-canvasW = canvas.width;
-canvasH = canvas.height;
+    var canvas = document.getElementById("gamecanvas");
+    canvas.width = document.body.clientWidth; //document.width is obsolete
+    canvas.height = document.body.clientHeight; //document.height is obsolete
+    canvasW = canvas.width;
+    canvasH = canvas.height;
 
-var ctx = canvas.getContext("2d");
-var score = 0
-var x = 0
 
-document.addEventListener("keydown", keyDownHandler, false);
+    var ctx = canvas.getContext("2d");
+    var score = 0
+    var x = -canvasW
+    var gap = 100
+    var posY = canvasH/2
+    var alive = true
 
-function keyDownHandler(e) {
-    if(e.code  == "space") {
-        rightPressed = true;
+    const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+
+
+    document.addEventListener("keydown", keyDownHandler, false);
+    document.addEventListener("click", clickHandler, false);
+
+    function keyDownHandler(e) {
+        if (e.code == "Space") {
+            posY-=60;
+        }
     }
-}
 
-function drawScore() {
-    ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
-    ctx.fillText("Score: "+ score, 0, 20);
-}
-function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    function clickHandler(e) {
+            posY-=60;
+        
+    }
 
-    drawScore();
+    function drawScore() {
+        ctx.font = "18px Arial";
+        ctx.fillStyle = "#000";
+        ctx.fillText("Score: " + score, 10, 20);
+    }
 
-    ctx.beginPath();
+    var pipes = []
 
-    randomoffset = Math.random();
+     for (var i = 0; i < 4; i++) {
+        pipes.push(random(canvasH * 0.2, canvasH * 0.8))
+
+        } 
+
+    function drawPipes() {
+
+        for (var i = 0; i < pipes.length; i++) {
+            pipeoffset = pipes[i]
+            ctx.beginPath();
+            ctx.rect(-x + i*canvasW*0.8, 0, canvasW / 5, pipeoffset);
+            ctx.stroke();
+
+            ctx.beginPath();
+            // StartX, StartY, Width, Height
+            ctx.rect(-x + i*canvasW*0.8,   canvasH,   canvasW / 5,   -canvasH + pipeoffset + gap);
+            ctx.stroke();
+        }
+    }
+
+    function drawPlayer(){
+
+        ctx.beginPath();
+        ctx.rect(canvasW * 0.1,posY,20,20);
+        ctx.stroke();
 
 
-    ctx.rect(-x, 0, canvasW/5, canvasH/3);
-    ctx.stroke();
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        drawScore();
+        drawPipes();
+        drawPlayer();
+
+        ctx.beginPath();
+
+        if (x%(Math.round(canvasW*0.8)) == 0){
+            console.log("pushing")
+            pipes.push(random(canvasH * 0.2, canvasH * 0.8))
+            score+=1
+        }
+
+        if ( 0 < x%(Math.round(canvasW*0.8)) &&  x%(Math.round(canvasW*0.8)) < 40){
+            console.log(x)
+            xval = Math.floor(x/ canvasW*0.8)
+            console.log(xval + "xval")
+
+            console.log("IN")
+
+        }
 
 
 
-    x+=1
-    requestAnimationFrame(draw);
-}
+        if ((posY < 0) || (posY > (canvasH - 20))){
+            alive = false
+        }
 
-draw();
+        if (alive == true){
+            x += 1
+            Math.round(x)
+            posY +=2
+
+        }
+        
+        requestAnimationFrame(draw);
+    }
+
+    draw();
 
 </script>
