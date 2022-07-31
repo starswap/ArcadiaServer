@@ -150,3 +150,6 @@ a.button:hover{
     background-color: #86b175;
 }
 
+div#textcontainer{
+    padding: 40px 40px;
+}
