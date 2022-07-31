@@ -2,7 +2,7 @@ from flask import Blueprint, Flask, request, Response
 import json
 from arcadia.api.modlocation import returnNearCoords, getArcadeCoords
 
-from arcadia.api.modlocation.distdir import dist, direc
+from arcadia.api.modlocation.distdir import bearingToCardinal, dist, direc
 
 
 
@@ -45,7 +45,8 @@ def receive_guess(arcade_id):
 
     # distance = hs.haversine((arcade_x, arcade_y), (user_x, user_y), unit=Unit.METERS)
     distance = dist(arcade_x, arcade_y, userlat, userlong)
-    direction = direc(arcade_x, arcade_y, userlat, userlong)
+    direction = direc(userlat, userlong, arcade_x, arcade_y)
+    bearing = bearingToCardinal(direction)
 
     if distance < 15:
         return Response(
@@ -54,7 +55,7 @@ def receive_guess(arcade_id):
             mimetype='application/json'
         )
 
-    response_dict = {'distance': str(distance), 'direction': str(direction)}
+    response_dict = {'distance': str(distance), 'direction': str(direction),"bearing":str(bearing)}
 
     return Response(
         response=json.dumps(response_dict),
