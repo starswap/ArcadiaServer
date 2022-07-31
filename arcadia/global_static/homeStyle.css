@@ -44,14 +44,29 @@ p{
 
 
 div#top{
-    height: 50px;
     border-bottom: 1px solid var(--brandLightGreen);
     display:flex;
     align-items: center;
+    padding: 10px;
+    height: 60px;
 }
 
 div#left{
 }
+
+
+span#title{
+    font-weight:bold;
+    font-family: Dela Gothic One, Helvetica, Arial, sans-serif;
+    font-size: 32px;
+}
+img#smallLogo{
+    padding: 0px 10px;
+    position: relative;
+    top: 5px;
+
+}
+
 
 div#hspace{
     flex-grow: 1;
@@ -153,3 +168,4 @@ a.button:hover{
 div#textcontainer{
     padding: 40px 40px;
 }
+
