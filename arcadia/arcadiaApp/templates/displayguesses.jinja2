@@ -142,7 +142,7 @@ function guess(coords) {
             userlat: coords["lat"].toFixed(6),
             userlong: coords["lon"].toFixed(6),
             poilat: Number(currentCircle.poilat).toFixed(6),
-            poilong: Number(currentCirlce.poilong).toFixed(6)
+            poilong: Number(currentCircle.poilong).toFixed(6)
         })
     })
     .then((response) => response.json())
