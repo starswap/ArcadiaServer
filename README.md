@@ -9,3 +9,5 @@ Get outoors, find an arcade machine and get playing! Then take a moment to enjoy
 
 ## Technical Details
 Arcadia is a Progressive Web App built with Python Flask and HTML/JS/CSS. You can download the app by visiting <a href="https://arcadia.qduff.com">arcadia.qduff.com</a> on your mobile device.
+
+We made Arcadia for MLH BackyardHacksIII. Checkout the Devpost page for more details: <a href="https://devpost.com/software/arcadia-corkum">Devpost</a>.
