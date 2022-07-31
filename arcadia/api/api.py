@@ -5,6 +5,7 @@ from arcadia.api.modlocation import getGameType, returnNearCoords, getArcadeCoor
 from arcadia.api.modlocation.distdir import bearingToCardinal, dist, direc
 
 
+TARGET_DISTANCE = 10
 
 api_bp = Blueprint('api_bp', __name__)
 
@@ -48,7 +49,7 @@ def receive_guess(arcade_id):
     direction = direc(userlat, userlong, arcade_x, arcade_y)
     bearing = bearingToCardinal(direction)
 
-    if distance < 5:
+    if distance < TARGET_DISTANCE:
         return Response(
             response=json.dumps({"success": "gamepermitted", "gamecode": getGameType(arcade_id)}),
             status=200,
