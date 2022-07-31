@@ -25,6 +25,11 @@ def home():
 def guesser():
     return render_template("displayguesses.jinja2")
 
+@app_bp.route('/offline')
+@requiremobile
+def offline():
+    return render_template("offline.jinja2")
+
 @app_bp.route('/badges')
 @requiremobile
 def badges():
