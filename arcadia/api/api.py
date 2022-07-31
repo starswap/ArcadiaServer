@@ -1,4 +1,4 @@
-from flask import Blueprint, Flask, request, Response
+from flask import Blueprint, Flask, request, Response,session
 import json
 from arcadia.api.modlocation import getGameType, returnNearCoords, getArcadeCoords
 
@@ -31,7 +31,7 @@ def find_games():
 
 @api_bp.route("/game/<arcade_id>/guess", methods=['POST'])
 def receive_guess(arcade_id):
-
+    arcade_id = int(arcade_id)
     jsonSent = request.get_json(force=True)
 
     userlat = float(jsonSent['userlat'])

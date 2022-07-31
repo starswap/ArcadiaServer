@@ -1,0 +1,20 @@
+{% extends "appbase.jinja2" %}
+{% block main %}
+
+<div id="maincontainer">
+
+    <div id="maintopimage">
+    </div>
+
+    <div id="mainbottom">
+
+        <h1>Congratulations</h1>
+         <h2>You now have access to the arcade!</h2>
+        <a href="{{ url_for('app_bp.guesser')}}" class="button">Play the Game</a> <!-- This href needs to be changed to the game href-->
+
+    </div>
+
+
+</div >
+
+{% endblock %}

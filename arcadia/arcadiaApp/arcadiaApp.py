@@ -23,7 +23,10 @@ def home():
 @app_bp.route('/guesser')
 @requiremobile
 def guesser():
-    return render_template("displayguesses.jinja2")
+    if session.get("success")== "gamepermitted":
+        return render_template("congratulations.jinja2")
+    else:
+        return render_template("displayguesses.jinja2")
 
 @app_bp.route('/offline')
 @requiremobile
