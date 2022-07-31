@@ -52,8 +52,17 @@
             else {
                document.getElementById("installButton").style.display = "none";
             }      
+
+
+            // PWA INSTALL
+
+            let deferredPrompt;
+            window.addEventListener('beforeinstallprompt', (e) => {
+                deferredPrompt = e;
+            });
             const installApp = document.getElementById('installButton');
             installApp.addEventListener('click', async () => {
+                console.log("ok")
                 if (deferredPrompt !== null) {
                     deferredPrompt.prompt();
                     const { outcome } = await deferredPrompt.userChoice;
