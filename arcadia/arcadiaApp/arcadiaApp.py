@@ -14,7 +14,7 @@ app_bp = Blueprint('app_bp', __name__, template_folder="templates",
 @app_bp.route('/')
 @requiremobile
 def home():
-    if session.get("UserID"):
+    if session.get("UserID") is not None:
         return render_template("apphome.jinja2")
     else:
         return redirect(url_for("app_bp.login"))

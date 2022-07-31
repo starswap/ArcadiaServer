@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import request,redirect,url_for
+from flask import request,redirect,url_for,flash
 import re
 
 
@@ -13,6 +13,7 @@ def requiremobile(func):
         if match:
             return func(*args,**kwargs) #Do nothing
         else:
+            flash("This app requires mobile")
             return redirect(url_for("home_bp.home"), code=302)
     
     return wrapper
