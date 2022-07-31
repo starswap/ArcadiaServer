@@ -5,6 +5,7 @@
         <script src="https://kit.fontawesome.com/406fdaf1d8.js" crossorigin="anonymous"></script> <!-- font awesome -->
         <link rel="stylesheet" href="{{ url_for('static', filename='homeStyle.css') }}" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
 
     </head>
     <body>
@@ -45,22 +46,29 @@
     </div>
 
         <script>
+       
+            if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').then(function(reg) {
+                console.log('Successfully registered service worker', reg);
+            }).catch(function(err) {
+                console.warn('Error whilst registering service worker', err);
+            });
+            }
+
+
+
+
             if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
                document.getElementById("mobileOnlyNotification").style.display = "none";
             }  
             else {
                document.getElementById("installButton").style.display = "none";
             }      
-            const installApp = document.getElementById('installButton');
-            installApp.addEventListener('click', async () => {
-                if (deferredPrompt !== null) {
-                    deferredPrompt.prompt();
-                    const { outcome } = await deferredPrompt.userChoice;
-                    if (outcome === 'accepted') {
-                        deferredPrompt = null;
-                    }
-                }
-            });
+
+
+
+
+
 
         </script>        
 

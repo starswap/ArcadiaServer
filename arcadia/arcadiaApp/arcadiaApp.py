@@ -1,5 +1,5 @@
 import re
-from flask import Blueprint, flash, render_template, session, redirect, url_for
+from flask import Blueprint, flash, render_template, send_file, session, redirect, url_for
 from arcadia.arcadiaApp.requiremobile import requiremobile
 from flask import Blueprint, request
 from passlib.hash import argon2
@@ -24,6 +24,11 @@ def home():
 @requiremobile
 def guesser():
     return render_template("displayguesses.jinja2")
+
+@app_bp.route('/offline')
+@requiremobile
+def offline():
+    return render_template("offline.jinja2")
 
 @app_bp.route('/badges')
 @requiremobile
@@ -114,4 +119,5 @@ def logout():
     if session.get("UserName"):
         session.pop("UserName")
     return redirect(url_for("app_bp.home"))
+
 

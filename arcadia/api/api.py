@@ -1,9 +1,13 @@
 from flask import Blueprint, Flask, request, Response,session
 import json
+<<<<<<< HEAD
 
 from arcadia.api.modlocation import returnNearCoords, getArcadeCoords
+=======
+from arcadia.api.modlocation import getGameType, returnNearCoords, getArcadeCoords
+>>>>>>> 48d50dc8003614a37526f3ae7f6f602bc6d125aa
 
-from arcadia.api.modlocation.distdir import dist, direc
+from arcadia.api.modlocation.distdir import bearingToCardinal, dist, direc
 
 
 
@@ -13,11 +17,11 @@ api_bp = Blueprint('api_bp', __name__)
 @api_bp.route("/game/find", methods=['GET', 'POST'])
 def find_games():
     jsonSent = request.get_json(force=True)
-
+    print(jsonSent)
     # needs to be sent current location of user in request
     user_x = float(jsonSent['userlat'])
     user_y = float(jsonSent['userlong'])
-
+    
     return Response(
         response=json.dumps(
             {
@@ -46,17 +50,18 @@ def receive_guess(arcade_id):
 
     # distance = hs.haversine((arcade_x, arcade_y), (user_x, user_y), unit=Unit.METERS)
     distance = dist(arcade_x, arcade_y, userlat, userlong)
-    direction = direc(arcade_x, arcade_y, userlat, userlong)
+    direction = direc(userlat, userlong, arcade_x, arcade_y)
+    bearing = bearingToCardinal(direction)
 
-    if distance < 15:
+    if distance < 5:
         session["success"] = "gamepermitted"
         return Response(
-            response=json.dumps({"success": "gamepermitted"}),
+            response=json.dumps({"success": "gamepermitted", "gamecode": getGameType(arcade_id)}),
             status=200,
             mimetype='application/json'
         )
 
-    response_dict = {'distance': str(distance), 'direction': str(direction)}
+    response_dict = {'distance': str(distance), 'direction': str(direction),"bearing":str(bearing)}
 
     return Response(
         response=json.dumps(response_dict),

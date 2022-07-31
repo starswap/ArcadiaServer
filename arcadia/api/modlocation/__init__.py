@@ -26,14 +26,20 @@ def findPOICoords(xloc: int, yloc: int) -> list[dict[str, float]]:
         list[dict[str,float]]: list of dicts, where dicts contain key x and x coord, and key y and y coord.
     """
     
-    rjson = requests.get(f"""https://overpass-api.de/api/interpreter?data=[out:json][timeout:8];
+    attempts = 0
 
+    while attempts < 3:
+        try:
+            rjson = requests.get(f"""https://overpass-api.de/api/interpreter?data=[out:json][timeout:8];
 node["leisure"="park"](around:{searchRadius},{xloc}, {yloc});
 way["leisure"="park"](around:{searchRadius},{xloc}, {yloc});
 relation["leisure"="park"](around:{searchRadius},{xloc}, {yloc});
 
 out tags geom;
 """).json()
+            break
+        except:
+            attempts+=1
 
     #__import__("pprint").pprint(rjson)
     out = []

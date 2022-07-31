@@ -1,16 +1,36 @@
 {
-    "background_color": "purple",
-    "description": "Shows random fox pictures. Hey, at least it isn't cats.",
-    "display": "fullscreen",
+    "short_name": "Arcadia",
+    "name": "Play the earth!",
     "icons": [
       {
-        "src": "icon/fox-icon.png",
-        "sizes": "192x192",
-        "type": "image/png"
+        "src": "/global_static/logo.svg",
+        "type": "image/svg+xml",
+        "sizes": "150x150"
       }
     ],
-    "name": "Awesome fox pictures",
-    "short_name": "Foxes",
-    "start_url": "/pwa-examples/a2hs/index.html"
+    "start_url": "/app",
+    "background_color": "#1C491F",
+    "display": "standalone",
+    "scope": "/app",
+    "theme_color": "#A5D193",
+    "shortcuts": [
+        {
+            "name": "Home",
+            "short_name": "Home",
+            "description": "Go to arcadia home page",
+            "url": "/app",
+            "icons": [{ "src": "/global_static/logo.svg", "sizes": "150x150" }]
+          },
+
+      {
+        "name": "Play!",
+        "short_name": "Play",
+        "description": "Play games",
+        "url": "/app/guesser",
+        "icons": [{ "src": "/global_static/logo.svg", "sizes": "150x150" }]
+      }
+    ],
+    "description": "Arcadia game platform."
+   
   }
   
