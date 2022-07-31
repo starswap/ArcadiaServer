@@ -13,7 +13,7 @@ def requiremobile(func):
         if match:
             return func(*args,**kwargs) #Do nothing
         else:
-            flash("This app requires mobile")
+            flash("Note: you have tried to access a page that requires you to be on mobile. Please try again on your phone.")
             return redirect(url_for("home_bp.home"), code=302)
     
     return wrapper
