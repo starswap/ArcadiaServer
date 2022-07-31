@@ -1,7 +1,8 @@
 import re
-from flask import Blueprint, flash, render_template, send_file, session, redirect, url_for
+import os
+from flask import Blueprint, flash, render_template, send_file, session, redirect, url_for, Response, request
+from flask import current_app as app
 from arcadia.arcadiaApp.requiremobile import requiremobile
-from flask import Blueprint, request
 from passlib.hash import argon2
 from requests import Response
 from arcadia.db import get_db
@@ -9,6 +10,13 @@ from arcadia.db import get_db
 # from flask import current_app as app
 app_bp = Blueprint('app_bp', __name__, template_folder="templates",
                    static_folder="static", static_url_path="/ast")
+
+GAMES = {
+    0: "animalInvaders.js",
+    1: "",
+    2: "",
+    3: ""
+}
 
 
 @app_bp.route('/')
@@ -123,19 +131,23 @@ def logout():
     return redirect(url_for("app_bp.home"))
 
 
-
 @app_bp.route('/playgame')
 @requiremobile
 def playgame():
     gamecode = session.get("gamecode")
-    script = ""
-    if (gamecode == 0): #animal invaders
-        script = 
-    elif (gamecode == 1): #flappy squirrel
-        pass
-    elif (gamecode == 2):
-        pass
-    elif (gamecode == 3):
-        pass
-    return render_template("playgame.jinja2",gameURL=script)
+    if (gamecode == None):
+        return ("Forbidden; You don't have the right to access this page",403) # Stop fooling around!
+    else:
+        script = GAMES[gamecode]
+        return render_template("playgame.jinja2",GameScript="games/"+script)
 
+
+@app_bp.route('/games/<scriptfile>')
+def animalInvaders(scriptfile):
+    gamecode = session.get("gamecode")
+    if (gamecode == None or GAMES[gamecode] != scriptfile):
+        return Response(status=403) # Stop fooling around!
+    else:
+        return send_file(os.path.join(app.root_path,"arcadiaApp","games",GAMES[gamecode]))
+
+    
