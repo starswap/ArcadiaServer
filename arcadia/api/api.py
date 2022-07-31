@@ -17,13 +17,9 @@ def find_games():
     user_x = float(jsonSent['userlat'])
     user_y = float(jsonSent['userlong'])
 
-    # user_x = 51.364991
-    # user_y = -0.361726
-
     return Response(
         response=json.dumps(
             {
-                
                 "locations": returnNearCoords(user_x, user_y)
             }
         ),
@@ -44,13 +40,11 @@ def receive_guess(arcade_id):
     
     if not userlat or not userlong or not poilat or not poilong:
         return "insufficient parameters"
-    # arcade_id = request.values.get('arcade_id')
 
     arcade_x, arcade_y = getArcadeCoords( poilat, poilong)
 
     # distance = hs.haversine((arcade_x, arcade_y), (user_x, user_y), unit=Unit.METERS)
     distance = dist(arcade_x, arcade_y, userlat, userlong)
-
     direction = direc(arcade_x, arcade_y, userlat, userlong)
 
     if distance < 15:
