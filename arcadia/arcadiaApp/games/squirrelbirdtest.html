@@ -1,0 +1,58 @@
+<style>
+body,
+canvas{
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
+
+}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<canvas id="gamecanvas"></canvas>
+<script>
+var canvas = document.getElementById("gamecanvas");
+canvas.width = document.body.clientWidth; //document.width is obsolete
+canvas.height = document.body.clientHeight; //document.height is obsolete
+canvasW = canvas.width;
+canvasH = canvas.height;
+
+var ctx = canvas.getContext("2d");
+var score = 0
+var x = 0
+
+document.addEventListener("keydown", keyDownHandler, false);
+
+function keyDownHandler(e) {
+    if(e.code  == "space") {
+        rightPressed = true;
+    }
+}
+
+function drawScore() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Score: "+ score, 0, 20);
+}
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    drawScore();
+
+    ctx.beginPath();
+
+    randomoffset = Math.random();
+
+
+    ctx.rect(-x, 0, canvasW/5, canvasH/3);
+    ctx.stroke();
+
+
+
+    x+=1
+    requestAnimationFrame(draw);
+}
+
+draw();
+
+</script>
