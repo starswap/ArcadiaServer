@@ -139,10 +139,10 @@ function guess(coords) {
     fetch("{{url_for("api_bp.receive_guess",arcade_id='DUMMYARCADEID')}}".replace("DUMMYARCADEID",currentCircle.arcadeid), {
         method : "POST",
         body: JSON.stringify({
-            userlat: coords["lat"],
-            userlong: coords["lon"],
-            poilat: Number(currentCircle.poilat),
-            poilong: Number(currentCirlce.poilong)
+            userlat: coords["lat"].toFixed(6),
+            userlong: coords["lon"].toFixed(6),
+            poilat: Number(currentCircle.poilat).toFixed(6),
+            poilong: Number(currentCirlce.poilong).toFixed(6)
         })
     })
     .then((response) => response.json())
