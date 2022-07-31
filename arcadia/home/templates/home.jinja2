@@ -10,48 +10,42 @@
     </head>
     <body>
 
-    <div id="container">
+        <div id="container">
 
-        <div id="top">
-            <div id="left">
-                <img id="smallLogo" src="{{ url_for('app_bp.static', filename='smallLogo.svg') }}" alt="Small Logo">
-                <span id="title">Arcadia</span>
-            </div>
-            {# <div id="hspace"></div>
-            <div id="right">
-                <span>Leaderboards </span>
-            </div> #}
-        </div>
-        <div id="main" style="height: 90%;">
-
-            <div id="center">
-                <div class="hidesmall" style="flex-grow: 1;"></div>
-                <div style=" ">
-                    <img class="hidesmall" src="{{ url_for('home_bp.static', filename='img/main.png') }}" style=" height:100%; border-radius: 10px;">
+            <div id="top">
+                <div id="left">
+                    <img id="smallLogo" src="{{ url_for('app_bp.static', filename='smallLogo.svg') }}" alt="Small Logo">
+                    <span id="title">Arcadia</span>
                 </div>
-                <div id="textcontainer" style="width:30%;">
-                    <h1>Play the Earth!</h1>
-                    <h2>Arcadia is a brand new way of interacting with the outdoors.</p> 
-                    <a id="installButton" class="button">Install Arcadia Now!  <i class="fa-solid fa-location-dot"></a></i>
-                    <p id="mobileOnlyNotification">Open this page on your mobile phone to install Arcadia!</p>
-                            {% with messages = get_flashed_messages() %}
-                                {% if messages %}
-                                {% for message in messages %}
-                                    <p style="color:#fb7b7d;">{{ message }}</p>
-                                    {% endfor %}
-                                {% endif %}
-                            {% endwith %}
-
-                </div>
-
-                <div class="hidesmall" style="flex-grow: 1;"></div>
-                
+                {# <div id="hspace"></div>
+                <div id="right">
+                    <span>Leaderboards </span>
+                </div> #}
             </div>
+            <div id="main" style="height: 90%;">
 
+                <div id="center">
+                    <div class="hidesmall" style="flex-grow: 1;"></div>
+                    <div style=" ">
+                        <img class="hidesmall" src="{{ url_for('home_bp.static', filename='img/main.png') }}" style=" height:100%; border-radius: 10px;">
+                    </div>
+                    <div id="textcontainer" style="width:30%;">
+                        <h1>Play the Earth!</h1>
+                        <h2>Arcadia is a brand new way of interacting with the outdoors.</p> 
+                        <a id="installButton" class="button">Install Arcadia Now!  <i class="fa-solid fa-location-dot"></a></i>
+                        <p id="mobileOnlyNotification">Open this page on your mobile phone to install Arcadia!</p>
+                                {% with messages = get_flashed_messages() %}
+                                    {% if messages %}
+                                    {% for message in messages %}
+                                        <p style="color:#fb7b7d;">{{ message }}</p>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endwith %}
+                    </div>
+                    <div class="hidesmall" style="flex-grow: 1;"></div>
+                </div>
+            </div>
         </div>
-
-    </div>
-
         <script>
        
             if ('serviceWorker' in navigator) {
