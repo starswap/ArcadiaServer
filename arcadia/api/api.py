@@ -1,5 +1,6 @@
-from flask import Blueprint, Flask, request, Response
+from flask import Blueprint, Flask, request, Response,session
 import json
+
 from arcadia.api.modlocation import returnNearCoords, getArcadeCoords
 
 from arcadia.api.modlocation.distdir import dist, direc
@@ -48,6 +49,7 @@ def receive_guess(arcade_id):
     direction = direc(arcade_x, arcade_y, userlat, userlong)
 
     if distance < 15:
+        session["success"] = "gamepermitted"
         return Response(
             response=json.dumps({"success": "gamepermitted"}),
             status=200,
