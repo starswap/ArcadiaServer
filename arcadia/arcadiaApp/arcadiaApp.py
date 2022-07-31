@@ -1,7 +1,8 @@
 import re
-from flask import Blueprint, flash, render_template, send_file, session, redirect, url_for
+import os
+from flask import Blueprint, flash, render_template, send_file, session, redirect, url_for, Response, request
+from flask import current_app as app
 from arcadia.arcadiaApp.requiremobile import requiremobile
-from flask import Blueprint, request
 from passlib.hash import argon2
 from requests import Response
 from arcadia.db import get_db
@@ -9,6 +10,13 @@ from arcadia.db import get_db
 # from flask import current_app as app
 app_bp = Blueprint('app_bp', __name__, template_folder="templates",
                    static_folder="static", static_url_path="/ast")
+
+GAMES = {
+    0: "animalInvaders.js",
+    1: "",
+    2: "",
+    3: ""
+}
 
 
 @app_bp.route('/')
@@ -23,7 +31,8 @@ def home():
 @app_bp.route('/guesser')
 @requiremobile
 def guesser():
-    if session.get("success")== "gamepermitted":
+    print(session.get("success"))
+    if session.get("success") == "gamepermitted":
         return render_template("congratulations.jinja2")
     else:
         return render_template("displayguesses.jinja2")
@@ -80,7 +89,6 @@ def register():
 @app_bp.route('/login', methods=["GET", "POST"])
 @requiremobile
 def login():
-
     if request.method == 'GET':
         if session.get("UserID"):
             redirect(url_for("app_bp.home"))
@@ -89,7 +97,6 @@ def login():
         if not session.get("UserID"):
             username = request.values.get('username')
             password = request.values.get('password')
-            hashed_password = argon2.hash(password)
 
             db, cur = get_db()
             cur.execute(
@@ -100,7 +107,7 @@ def login():
                 flash("Incorrect Login details")
                 return redirect(url_for("app_bp.login"))
 
-            if not argon2.verify(hashed_password, resp["passwordhash"]): # Bad password for user
+            if not argon2.verify(password, resp["passwordhash"]): # Bad password for user
                 flash("Incorrect Login details")
                 return redirect(url_for("app_bp.login"))
 
@@ -124,3 +131,23 @@ def logout():
     return redirect(url_for("app_bp.home"))
 
 
+@app_bp.route('/playgame')
+@requiremobile
+def playgame():
+    gamecode = session.get("gamecode")
+    if (gamecode == None):
+        return ("Forbidden; You don't have the right to access this page",403) # Stop fooling around!
+    else:
+        script = GAMES[gamecode]
+        return render_template("playgame.jinja2",GameScript="games/"+script)
+
+
+@app_bp.route('/games/<scriptfile>')
+def animalInvaders(scriptfile):
+    gamecode = session.get("gamecode")
+    if (gamecode == None or GAMES[gamecode] != scriptfile):
+        return Response(status=403) # Stop fooling around!
+    else:
+        return send_file(os.path.join(app.root_path,"arcadiaApp","games",GAMES[gamecode]))
+
+    

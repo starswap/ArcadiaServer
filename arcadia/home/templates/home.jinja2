@@ -10,41 +10,42 @@
     </head>
     <body>
 
-    <div id="container">
+        <div id="container">
 
-        <div id="top">
-            <div id="left">
-                <img id="smallLogo" src="{{ url_for('app_bp.static', filename='smallLogo.svg') }}" alt="Small Logo">
-                <span id="title">Arcadia</span>
-            </div>
-            {# <div id="hspace"></div>
-            <div id="right">
-                <span>Leaderboards </span>
-            </div> #}
-        </div>
-        <div id="main" style="height: 90%;">
-
-            <div id="center">
-                <div class="hidesmall" style="flex-grow: 1;"></div>
-                <div style=" ">
-                    <img class="hidesmall" src="{{ url_for('home_bp.static', filename='img/main.png') }}" style=" height:100%; border-radius: 10px;">
+            <div id="top">
+                <div id="left">
+                    <img id="smallLogo" src="{{ url_for('app_bp.static', filename='smallLogo.svg') }}" alt="Small Logo">
+                    <span id="title">Arcadia</span>
                 </div>
-                <div id="textcontainer" style="width:30%;">
-                    <h1>Play the Earth!</h1>
-                    <h2>Arcadia is a brand new way of interacting with the outdoors.</p> 
-                    <a id="installButton" class="button">Install Arcadia Now!  <i class="fa-solid fa-location-dot"></a></i>
-                    <p id="mobileOnlyNotification">Open this page on your mobile phone to install Arcadia!</p>
-
-                </div>
-
-                <div class="hidesmall" style="flex-grow: 1;"></div>
-                
+                {# <div id="hspace"></div>
+                <div id="right">
+                    <span>Leaderboards </span>
+                </div> #}
             </div>
+            <div id="main" style="height: 90%;">
 
+                <div id="center">
+                    <div class="hidesmall" style="flex-grow: 1;"></div>
+                    <div style=" ">
+                        <img class="hidesmall" src="{{ url_for('home_bp.static', filename='img/main.png') }}" style=" height:100%; border-radius: 10px;">
+                    </div>
+                    <div id="textcontainer" style="width:30%;">
+                        <h1>Play the Earth!</h1>
+                        <h2>Arcadia is a brand new way of interacting with the outdoors.</p> 
+                        <a id="installButton" class="button">Install Arcadia Now!  <i class="fa-solid fa-location-dot"></a></i>
+                        <p id="mobileOnlyNotification">Open this page on your mobile phone to install Arcadia!</p>
+                                {% with messages = get_flashed_messages() %}
+                                    {% if messages %}
+                                    {% for message in messages %}
+                                        <p style="color:#fb7b7d;">{{ message }}</p>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endwith %}
+                    </div>
+                    <div class="hidesmall" style="flex-grow: 1;"></div>
+                </div>
+            </div>
         </div>
-
-    </div>
-
         <script>
        
             if ('serviceWorker' in navigator) {
@@ -65,7 +66,34 @@
                document.getElementById("installButton").style.display = "none";
             }      
 
+            // Custom app install flow
 
+            let deferredPrompt;
+
+            window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent the mini-infobar from appearing on mobile
+            e.preventDefault();
+            // Stash the event so it can be triggered later.
+            deferredPrompt = e;
+            // Update UI notify the user they can install the PWA
+            //showInstallPromotion();
+            // Optionally, send analytics event that PWA install promo was shown.
+            console.log(`'beforeinstallprompt' event was fired.`);
+            });
+
+            buttonInstall = document.getElementById("installButton")
+            buttonInstall.addEventListener('click', async () => {
+            // Hide the app provided install promotion
+            //hideInstallPromotion();
+            // Show the install prompt
+            deferredPrompt.prompt();
+            // Wait for the user to respond to the prompt
+            const { outcome } = await deferredPrompt.userChoice;
+            // Optionally, send analytics event with outcome of user choice
+            console.log(`User response to the install prompt: ${outcome}`);
+            // We've used the prompt, and can't use it again, throw it away
+            deferredPrompt = null;
+            });
 
 
 

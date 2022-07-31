@@ -31,7 +31,7 @@ def find_games():
 
 @api_bp.route("/game/<arcade_id>/guess", methods=['POST'])
 def receive_guess(arcade_id):
-
+    arcade_id = int(arcade_id)
     jsonSent = request.get_json(force=True)
 
     userlat = float(jsonSent['userlat'])
@@ -50,8 +50,10 @@ def receive_guess(arcade_id):
     bearing = bearingToCardinal(direction)
 
     if distance < TARGET_DISTANCE:
+        session["success"] = "gamepermitted"
+        session["gamecode"] = getGameType(arcade_id)
         return Response(
-            response=json.dumps({"success": "gamepermitted", "gamecode": getGameType(arcade_id)}),
+            response=json.dumps({"success": "gamepermitted"}),
             status=200,
             mimetype='application/json'
         )
