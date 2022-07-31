@@ -98,12 +98,32 @@ a:link { /* link */
     filter: brightness(70%);
     text-decoration: underline;
 }
-img.mainimage{
-    height: 100%; 
-    border-radius: 10px;
-}
+
+
 @media screen and (max-width: 600px) {
-    img.mainimage{
+    div.hidesmall,
+    img.hidesmall{
       display: none;
     }
+    div#textcontainer{
+        width: 100% !important;
+    }
  }
+
+ a.button, button {
+    color: #1C491F;
+    background-color: #A5D193;
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 10px 30px;
+    
+    display: inline-block;
+    margin: 4px 2px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+a.button:hover{
+    background-color: #86b175;
+}
+

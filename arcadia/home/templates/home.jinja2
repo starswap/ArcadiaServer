@@ -21,22 +21,21 @@
             </div>
         </div>
         <div id="main" style="height: 90%;">
-            
+
             <div id="center">
-                <div class="hide">
-                <div style="flex-grow: 1;"></div>
+                <div class="hidesmall" style="flex-grow: 1;"></div>
                 <div style=" margin-right:60px;">
-                    <img class="mainimage" src="{{ url_for('home_bp.static', filename='img/main.png') }}">
+                    <img class="hidesmall" src="{{ url_for('home_bp.static', filename='img/main.png') }}" style=" height:100%; border-radius: 10px;">
                 </div>
-                </div>
-                <div style="width:30%;">
+                <div id="textcontainer" style="width:30%;">
                     <h1>Play the Earth!</h1>
                     <p>Arcadia is a brand new way of interacting with the outdoors.</p> 
-                    <button id="installButton">Install Arcadia Now! <i class="fa-solid fa-location-dot"></i></button>
+                    <a class="button">Install Arcadia Now!  <i class="fa-solid fa-location-dot"></a></i>
                     <p id="mobileOnlyNotification">Open this page on your mobile phone to install Arcadia!</p>
+
                 </div>
 
-                <div style="flex-grow: 1;"></div>
+                <div class="hidesmall" style="flex-grow: 1;"></div>
                 
             </div>
 
