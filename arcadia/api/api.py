@@ -47,7 +47,7 @@ def receive_guess(arcade_id):
     distance = dist(arcade_x, arcade_y, userlat, userlong)
     direction = direc(arcade_x, arcade_y, userlat, userlong)
 
-    if distance < 15:
+    if distance < 5:
         return Response(
             response=json.dumps({"success": "gamepermitted"}),
             status=200,
