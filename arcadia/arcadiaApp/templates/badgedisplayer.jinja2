@@ -1,8 +1,14 @@
 {% extends "appbase.jinja2" %}
 {% block main %}
 <table>
-    {% for item in response%}
-        <tr><td>{{item["url"]}}</td> <td>{{item["badge_name"]}}</td></tr>
-    {% endfor %}
+    {% if len(response) >= 1%}
+        {% for item in response%}
+            <tr><td>{{item["url"]}}</td> <td>{{item["badge_name"]}}</td></tr>
+        {% endfor %}
+    {% else %}
+        <h2> You have no badges! </h2><br>
+        Earn badges by getting high scores! 
+    {% endif %}
+
 </table>
 {% endblock %}
