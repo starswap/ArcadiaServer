@@ -17,7 +17,6 @@ body{
     font-family: Chivo, Helvetica, Arial, sans-serif;
     height: 100%;
     font-weight: 400;
-    
 }
 
 a.button, button {
@@ -30,7 +29,9 @@ a.button, button {
     display: inline-block;
     margin: 4px 2px;
     text-decoration: none;
+    font-weight: 700;
 }
+
 a.button:hover{
     background-color: #86b175;
 }
@@ -59,7 +60,7 @@ div#main {
 }
 nav#navbar{
     padding: 10px;
-    height: 55px;
+    height: 60px;
     /* border-bottom: 1px solid #A5D193; */
     display:flex;
 }
@@ -83,6 +84,20 @@ img#smallLogo{
     position: relative;
     top: 5px;
 
+}
+
+a#logoutbutton {
+    color: #A5D193;
+    border:  2px solid #A5D193;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 6px 14px;
+
+    
+    display: inline-block;
+    margin: 8px 6px;
+    text-decoration: none;
+    font-weight: 400;
 }
 
 /* Home page */
@@ -144,7 +159,7 @@ input.general{
     color: var(--brandLightGreen);
     line-height: 24px;
     margin-top: 10px;
-    height: 30px;
+    height: 35px;
     width: 100%;
 }
 
@@ -164,4 +179,8 @@ input[type=submit] {
 a#registerlink{
     color: #A5D193;
 
+}
+
+p.accounterror{
+    color: rgb(250, 118, 118);
 }

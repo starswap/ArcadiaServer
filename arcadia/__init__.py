@@ -15,7 +15,7 @@ def init_app():
         from . import db # noqa
 
         # db.init_db(); db.seed_db() 
-
+        app.secret_key = "SUPERSECRETKEY...or not?"
 
         app.register_blueprint(home.home_bp)
         app.register_blueprint(api.api_bp, url_prefix="/api")

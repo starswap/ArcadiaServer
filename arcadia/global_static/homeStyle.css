@@ -7,7 +7,6 @@
 
 body, 
 html, 
-
 div#container {
     width:100%;
     height:100%;
@@ -20,15 +19,54 @@ div#container {
     flex-direction: column;
 }
 
+
+h1{
+    font-family: 'Chivo';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 32px;
+
+}
+h2{
+    font-family: 'Chivo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
+}
+
+p{
+    font-family: 'Chivo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+
 div#top{
-    height: 50px;
     border-bottom: 1px solid var(--brandLightGreen);
     display:flex;
     align-items: center;
+    padding: 10px;
+    height: 60px;
 }
 
 div#left{
 }
+
+
+span#title{
+    font-weight:bold;
+    font-family: Dela Gothic One, Helvetica, Arial, sans-serif;
+    font-size: 32px;
+}
+img#smallLogo{
+    padding: 0px 10px;
+    position: relative;
+    top: 5px;
+
+}
+
 
 div#hspace{
     flex-grow: 1;
@@ -98,12 +136,36 @@ a:link { /* link */
     filter: brightness(70%);
     text-decoration: underline;
 }
-img.mainimage{
-    height: 100%; 
-    border-radius: 10px;
-}
+
+
 @media screen and (max-width: 600px) {
-    img.mainimage{
+    div.hidesmall,
+    img.hidesmall{
       display: none;
     }
+    div#textcontainer{
+        width: 100% !important;
+    }
  }
+
+ a.button, button {
+    color: #1C491F;
+    background-color: #A5D193;
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 10px 30px;
+    
+    display: inline-block;
+    margin: 4px 2px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+a.button:hover{
+    background-color: #86b175;
+}
+
+div#textcontainer{
+    padding: 40px 40px;
+}
+
