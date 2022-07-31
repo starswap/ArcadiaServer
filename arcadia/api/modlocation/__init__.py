@@ -111,7 +111,6 @@ def getArcadeCoords(xloc: int, yloc: int):
 
     arcadexloc, arcadeyloc = coordOffsetter(xloc, yloc, meter_aoX, meter_aoY)
 
-    print(arcadexloc, arcadeyloc)
     return arcadexloc, arcadeyloc
 
 
