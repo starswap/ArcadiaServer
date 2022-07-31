@@ -1,11 +1,6 @@
 from flask import Blueprint, Flask, request, Response,session
 import json
-<<<<<<< HEAD
-
-from arcadia.api.modlocation import returnNearCoords, getArcadeCoords
-=======
 from arcadia.api.modlocation import getGameType, returnNearCoords, getArcadeCoords
->>>>>>> 48d50dc8003614a37526f3ae7f6f602bc6d125aa
 
 from arcadia.api.modlocation.distdir import bearingToCardinal, dist, direc
 
