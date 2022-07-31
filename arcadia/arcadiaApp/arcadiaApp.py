@@ -127,5 +127,15 @@ def logout():
 @app_bp.route('/playgame')
 @requiremobile
 def playgame():
-    return render_template("playgame.jinja2")
+    gamecode = session.get("gamecode")
+    script = ""
+    if (gamecode == 0): #animal invaders
+        script = 
+    elif (gamecode == 1): #flappy squirrel
+        pass
+    elif (gamecode == 2):
+        pass
+    elif (gamecode == 3):
+        pass
+    return render_template("playgame.jinja2",gameURL=script)
 
