@@ -1,12 +1,15 @@
 import crcmod
 from datetime import datetime
 from math import pi, cos
+import requests
 crc32_func = crcmod.mkCrcFun(0x104c11db7, initCrc=0, xorOut=0xFFFFFFFF)
 
 earthRadius = 6378137.0
 
 arcadeScale = 100 / 16  # 100m
 circleScale = 100 / 16
+
+searchRadius = 5000.0
 
 SECRETKEY = "supersecret!"
 
@@ -21,6 +24,26 @@ def findPOICoords(xloc: int, yloc: int) -> list[dict[str, float]]:
     Returns:
         list[dict[str,float]]: list of dicts, where dicts contain key x and x coord, and key y and y coord.
     """
+    
+    rjson = requests.get(f"""https://overpass-api.de/api/interpreter?data=[out:json][timeout:8];
+
+node["leisure"="park"](around:{searchRadius},{xloc}, {yloc});
+way["leisure"="park"](around:{searchRadius},{xloc}, {yloc});
+relation["leisure"="park"](around:{searchRadius},{xloc}, {yloc});
+
+out tags geom;
+""").json()
+
+    #__import__("pprint").pprint(rjson)
+    out = []
+
+    for park in rjson["elements"]:
+        bbox = park["bounds"]
+        lat = round((bbox["minlat"] + bbox["maxlat"])/2, 6)
+        long = round((bbox["minlon"] + bbox["maxlon"])/2, 6)
+        out.append({"x":lat, "y":long})
+    
+    return out
     return [
         {"x": 51.356389, "y": -0.378113},
         {"x": 51.370967, "y": -0.367160},
