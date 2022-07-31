@@ -25,59 +25,56 @@ crossorigin=""></script>
 <div id="central" style="display:flex;flex-direction:column;justify-content:center;height:100%;">
     <div id="map" style="flex-grow:2;margin-right: 15px;margin-left:15px; ">
     </div>
-    <p id="choose" style="text-align:center; margin: 10px 10px 10px 10px;">First choose an arcade to naviagate to.</p>
+    <p id="choose" style="text-align:center; margin: 10px 10px 10px 10px;">First navigate inside a red circle to find an arcade!</p>
     <button id="guessButton" onclick="getUserLocation(guess)" style="display:none;margin: 0px 10px 10px 10px;">Guess Here!</button>
 </div>
 
 <script>
 
-const LOCATION_UPDATE_DELAY = 2000;
+const LOCATION_UPDATE_DELAY = 4000;
 
 var userMarker = false;
 var map;
 var guessMarkerStyle = L.AwesomeMarkers.icon({
     markerColor: 'green'
 });   
+var inCircle = false;
+var currentCircle;
 
-var circles = []
-function getCookieDict() {
-    let cookies = {}
-    document.cookie.split(";").map((a) => {
-        cookies[a.trim().split("=")[0]] = a.trim().split("=")[1]
-    })
-    return cookies
-}
+var circles = L.featureGroup();
 
-function circleClick(event) {
-    let cookies = getCookieDict()
-    if (cookies["chosen"]) {
-        //User has already made a choice
-        //We use cookies to ensure guesses persist over reload
+function makeCircle(circleDetails,coords) {
+    let from = new L.LatLng(coords["lat"], coords["lon"]);
+    let to = new L.LatLng(circleDetails.circlelat, circleDetails.circlelong)
+    let distance = (from).distanceTo(to).toFixed(0)
+    let colour,fillColour;
+
+    //console.log(distance)
+    if (distance <= circleDetails.radius) {
+        colour = "green";
+        fillColour = "#51d675"
+        inCircle = true;
     }
     else {
-        let circle = event.target
-        document.cookie = "poilat="+circle.poilat.toString();
-        document.cookie = "poilong="+circle.poilong.toString();
-        document.cookie = "arcadeid="+circle.arcadeid.toString();
-        document.cookie = "chosen=true";        
-        document.getElementById("guessButton").style.display = "block";
-        document.getElementById("choose").innerHTML = "";
-
+        colour = "red";
+        fillColour = "#f03"
     }
-}
 
-function makeCircle(circleDetails) {
     let circle = L.circle([circleDetails.circlelat, circleDetails.circlelong], {
-        color: 'red',
-        fillColor: '#f03',
+        color: colour,
+        fillColor: fillColour,
         fillOpacity: 0.5,
         radius: circleDetails.radius
-    }).addTo(map).on("click", circleClick);
+    })//.on("click", circleClick);
     circle.poilat = circleDetails.poilat
     circle.poilong = circleDetails.poilong
     circle.arcadeid = circleDetails.arcadeid
-    circles.push(circle)
+    circle.addTo(circles)
+    map.addLayer(circles)
 
+    if (distance <= circleDetails.radius) {
+        currentCircle = circle
+    }
 }
 
 function getUserLocation(fnOf) { 
@@ -95,16 +92,23 @@ function getUserLocation(fnOf) {
 }
 
 function getCircles(coords) {
+    //console.log(coords)
     fetch("{{url_for("api_bp.find_games")}}", {
         method : "POST",
         body: JSON.stringify({
-            userlat: coords["lat"],
-            userlong: coords["lon"]
-            })
+            "userlat": coords["lat"],
+            "userlong": coords["lon"]
+        })
     })
     .then((response) => response.json())
     .then( (data) => {
-        data["locations"].map(makeCircle)
+        inCircle = false;
+        map.removeLayer(circles);
+        circles = L.featureGroup();
+
+        for (loc of data["locations"]) {
+            makeCircle(loc,coords)
+        }
     })
 }
 
@@ -118,36 +122,36 @@ function updateUserPosn(coords) {
         let myLatLng = new L.LatLng(coords["lat"], coords["lon"]);
         userMarker.setLatLng(myLatLng)
         //map.panTo(myLatLng);    
+    }
+    getCircles(coords) //display circles 
+    if (inCircle) {
+        document.getElementById("guessButton").style.display = "block";
+        document.getElementById("choose").display = "none";
+    }
+    else {
+        document.getElementById("guessButton").style.display = "none";
+        document.getElementById("choose").style.display = "block";    
     }    
 }
 
-
-
 function guess(coords) {
-    let cookies = getCookieDict()
 
-    fetch("{{url_for("api_bp.receive_guess",arcade_id='DUMMYARCADEID')}}".replace("DUMMYARCADEID",cookies["arcadeid"]), {
+    fetch("{{url_for("api_bp.receive_guess",arcade_id='DUMMYARCADEID')}}".replace("DUMMYARCADEID",currentCircle.arcadeid), {
         method : "POST",
         body: JSON.stringify({
             userlat: coords["lat"],
             userlong: coords["lon"],
-            poilat: Number(cookies["poilat"]),
-            poilong: Number(cookies["poilong"])
+            poilat: Number(currentCircle.poilat),
+            poilong: Number(currentCirlce.poilong)
         })
     })
     .then((response) => response.json())
     .then( (data) => {
-
-
             L.marker([coords["lat"],coords["lon"]], {icon: guessMarkerStyle}).addTo(map)
                 .bindPopup(`Distance to Arcade: ${Math.round(data["distance"])}m<br />Direction to Arcade: ${data["bearing"]}`)
                 .openPopup();
             
             })
-
-
-
-
 }
 
 
@@ -159,22 +163,15 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-getUserLocation(
-    (userCoords) => {
-        getCircles(userCoords) //display circles 
-        updateUserPosn(userCoords) //show pin
-    }
-)
 
 function update() {
-    getUserLocation(
-    (userCoords) => {
-        updateUserPosn(userCoords) //show pin
-    }
-)
+    getUserLocation(updateUserPosn)
 }
+
+update()
 setInterval(update,LOCATION_UPDATE_DELAY) //update location every 2000
 
+/*
 let cookies = getCookieDict()
 if (cookies["chosen"]) {
     document.getElementById("guessButton").style.display = "block";
@@ -185,6 +182,7 @@ else {
     document.getElementById("guessButton").style.display = "none";
     document.getElementById("choose").style.display = "block";    
 }
+*/
 
 
 

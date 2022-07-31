@@ -12,11 +12,11 @@ api_bp = Blueprint('api_bp', __name__)
 @api_bp.route("/game/find", methods=['GET', 'POST'])
 def find_games():
     jsonSent = request.get_json(force=True)
-
+    print(jsonSent)
     # needs to be sent current location of user in request
     user_x = float(jsonSent['userlat'])
     user_y = float(jsonSent['userlong'])
-
+    
     return Response(
         response=json.dumps(
             {
