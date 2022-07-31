@@ -1,4 +1,4 @@
-from flask import Blueprint, Flask, request, Response
+from flask import Blueprint, Flask, request, Response,session
 import json
 from arcadia.api.modlocation import getGameType, returnNearCoords, getArcadeCoords
 
