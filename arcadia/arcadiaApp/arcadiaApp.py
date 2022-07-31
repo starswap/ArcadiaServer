@@ -23,7 +23,8 @@ def home():
 @app_bp.route('/guesser')
 @requiremobile
 def guesser():
-    if session.get("success")== "gamepermitted":
+    print(session.get("success"))
+    if session.get("success") == "gamepermitted":
         return render_template("congratulations.jinja2")
     else:
         return render_template("displayguesses.jinja2")
@@ -123,4 +124,10 @@ def logout():
         session.pop("UserName")
     return redirect(url_for("app_bp.home"))
 
+
+
+@app_bp.route('/playgame')
+@requiremobile
+def playgame():
+    return render_template("playgame.jinja2")
 

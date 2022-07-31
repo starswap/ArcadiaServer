@@ -50,8 +50,10 @@ def receive_guess(arcade_id):
     bearing = bearingToCardinal(direction)
 
     if distance < TARGET_DISTANCE:
+        session["success"] = "gamepermitted"
+        session["gamecode"] = getGameType(arcade_id)
         return Response(
-            response=json.dumps({"success": "gamepermitted", "gamecode": getGameType(arcade_id)}),
+            response=json.dumps({"success": "gamepermitted"}),
             status=200,
             mimetype='application/json'
         )
