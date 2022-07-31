@@ -38,6 +38,9 @@ var map;
 var guessMarkerStyle = L.AwesomeMarkers.icon({
     markerColor: 'green'
 });   
+var arcadeMarkerStyle = L.AwesomeMarkers.icon({ //TESTING
+    markerColor: 'orange'
+});   
 var inCircle = false;
 var currentCircle;
 
@@ -48,6 +51,11 @@ function makeCircle(circleDetails,coords) {
     let to = new L.LatLng(circleDetails.circlelat, circleDetails.circlelong)
     let distance = (from).distanceTo(to).toFixed(0)
     let colour,fillColour;
+
+    //FOR TESTING
+    L.marker([circleDetails.arcadelat, circleDetails.arcadelong], {icon: arcadeMarkerStyle}).addTo(map)
+    .openPopup();
+    
 
     //console.log(distance)
     if (distance <= circleDetails.radius) {
