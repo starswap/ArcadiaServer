@@ -1,0 +1,13 @@
+## To finalise the project:
+- Diagnose and fix errors on map page (server/client combination - maybe choose a different API)
+- Finish the Flappy bird game and add put in same format as the other one - add a wildlife theme
+- Finish the space invaders game - the animals need to drop down and there needs to be blockers
+- Timeouts once the user has played the game: force appreciation of the natural environment in which they find themself
+- Improve README.md
+- Deal effectively with overlapping circles
+- Ensure all pages including badges can be accessed from everywhere via navigation links
+- Add high scores
+- Make sure that once the user has finished the game the changes to session[] are removed so they can't play it again if this is necessary
+- Adjust frequency of update so that location updates more frequently than circles
+- Publish somewhere, e.g. to Google Play
+- Make play game require login?
