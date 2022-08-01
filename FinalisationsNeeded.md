@@ -11,3 +11,4 @@
 - Adjust frequency of update so that location updates more frequently than circles
 - Publish somewhere, e.g. to Google Play
 - Make play game require login?
+- Refactor code, especially JS, to reduce use of global variables; improve performance
